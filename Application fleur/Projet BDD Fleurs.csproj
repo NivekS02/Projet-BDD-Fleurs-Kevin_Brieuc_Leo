@@ -95,7 +95,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AddEdit_bouquet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddEdit_client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEdit_commande.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEdit_contenubouquet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEdit_contenuproduit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEdit_magasin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEdit_produit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,8 +127,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AddEdit_bouquet.xaml.cs">
+      <DependentUpon>AddEdit_bouquet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEdit_client.xaml.cs">
       <DependentUpon>AddEdit_client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit_commande.xaml.cs">
+      <DependentUpon>AddEdit_commande.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit_contenubouquet.xaml.cs">
+      <DependentUpon>AddEdit_contenubouquet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit_contenuproduit.xaml.cs">
+      <DependentUpon>AddEdit_contenuproduit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit_magasin.xaml.cs">
+      <DependentUpon>AddEdit_magasin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit_produit.xaml.cs">
+      <DependentUpon>AddEdit_produit.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

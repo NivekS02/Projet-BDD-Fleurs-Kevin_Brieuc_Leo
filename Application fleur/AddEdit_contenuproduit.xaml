@@ -1,0 +1,29 @@
+﻿<Window x:Class="Projet_BDD_Fleurs.AddEdit_contenuproduit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_fleur"
+        mc:Ignorable="d"
+        Title="AddEdit_contenuproduit" Height="224" Width="154">
+    <Grid Background="DimGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="5,10,0,16" Foreground="White" ><Run Text="Numéro de commande "/><Run Text=":"/></TextBlock>
+        <TextBox Margin="5,35,5,323" x:Name="num_commande" />
+
+        <TextBlock Margin="5,58,0,92" Foreground="White"   ><Run Text="Nom de produit"/><Run Text=":"/></TextBlock>
+        <TextBox Margin="5,81,5,277" x:Name="nom_produit"  />
+
+        <TextBlock Margin="5,104,0,115" Text="Quantité :" Foreground="White"/>
+        <TextBox Margin="5,128,5,230" x:Name="quantite_produit"  />
+
+        <Button Content="Valider" Click="ButtonValider_contenuproduit" HorizontalAlignment="Left" Margin="81,160,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,160,0,0" VerticalAlignment="Top" Width="60"/>
+
+
+    </Grid>
+</Window>

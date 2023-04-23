@@ -1,0 +1,32 @@
+﻿<Window x:Class="Projet_BDD_Fleurs.AddEdit_commande"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_fleur"
+        mc:Ignorable="d"
+        Title="AddEdit_commande" Height="268" Width="233">
+    <Grid Background="DimGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="5,10,0,16" Text="Message :" Foreground="White" />
+        <TextBox Margin="5,35,5,323" x:Name="message" />
+
+        <TextBlock Margin="5,58,0,92" Text="Date de livraison :" Foreground="White"   />
+        <TextBox Margin="5,81,5,277" x:Name="date_livraison" />
+
+        <TextBlock Margin="5,104,0,115" Text="ID magasin :" Foreground="White"/>
+        <TextBox Margin="5,128,5,230" x:Name="id_magasin"  />
+
+        <TextBlock Margin="5,151,0,137" Text="ID client :" Foreground="White"  />
+        <TextBox Margin="5,174,5,184" x:Name="id_client"  />
+
+        <Button Content="Valider" Click="ButtonValider_commande" HorizontalAlignment="Left" Margin="125,206,0,0" VerticalAlignment="Top" Width="90"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,206,0,0" VerticalAlignment="Top" Width="90"/>
+
+
+    </Grid>
+</Window>

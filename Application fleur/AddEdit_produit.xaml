@@ -1,0 +1,35 @@
+﻿<Window x:Class="Projet_BDD_Fleurs.AddEdit_produit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_fleur"
+        mc:Ignorable="d"
+        Title="AddEdit_produit" Height="313" Width="300">
+    <Grid Background="DimGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="5,10,0,16" Text="Nom :" Foreground="White" />
+        <TextBox Margin="5,35,5,323" x:Name="nom_produit" />
+
+        <TextBlock Margin="5,59,0,160" Text="Stock :" Foreground="White"/>
+        <TextBox Margin="5,78,5,280" x:Name="stock_produit"  />
+
+        <TextBlock Margin="5,101,0,187" Text="Prix :" Foreground="White"  />
+        <TextBox Margin="5,123,5,235" x:Name="prix_produit"  />
+
+        <TextBlock Margin="5,146,0,142" Text="Disponibilité :" Foreground="White"  />
+        <TextBox Margin="5,171,5,187" x:Name="dispo_produit"  />
+
+        <TextBlock Margin="5,194,0,94" Foreground="White"  ><Run Text="I"/><Run Text="D"/><Run Text=" magasin :"/></TextBlock>
+        <TextBox Margin="5,216,5,142" x:Name="id_magasin"  />
+
+        <Button Content="Valider" Click="ButtonValider_produit" HorizontalAlignment="Left" Margin="157,250,0,0" VerticalAlignment="Top" Width="130"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,250,0,0" VerticalAlignment="Top" Width="130"/>
+
+
+    </Grid>
+</Window>

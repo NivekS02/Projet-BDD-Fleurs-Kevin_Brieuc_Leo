@@ -51,20 +51,13 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
-                Add_bouquet.Visibility = Visibility.Visible;
-                Add_client.Visibility = Visibility.Visible;
-                Add_commande.Visibility = Visibility.Visible;
-                Add_contenu_bouquet.Visibility = Visibility.Visible;
-                Add_contenu_produit.Visibility = Visibility.Visible;
-                Add_magasin.Visibility = Visibility.Visible;
-                Add_produit.Visibility = Visibility.Visible;
-                Edit_bouquet.Visibility = Visibility.Visible;
-                Edit_client.Visibility = Visibility.Visible;
-                Edit_commande.Visibility = Visibility.Visible;
-                Edit_contenu_bouquet.Visibility = Visibility.Visible;
-                Edit_contenu_produit.Visibility = Visibility.Visible;
-                Edit_magasin.Visibility = Visibility.Visible;
-                Edit_produit.Visibility = Visibility.Visible;
+                AddEdit_bouquet.Visibility = Visibility.Visible;
+                AddEdit_client.Visibility = Visibility.Visible;
+                AddEdit_commande.Visibility = Visibility.Visible;
+                AddEdit_contenu_bouquet.Visibility = Visibility.Visible;
+                AddEdit_contenu_produit.Visibility = Visibility.Visible;
+                AddEdit_magasin.Visibility = Visibility.Visible;
+                AddEdit_produit.Visibility = Visibility.Visible;
                 Del_bouquet.Visibility = Visibility.Visible;
                 Del_client.Visibility = Visibility.Visible;
                 Del_commande.Visibility = Visibility.Visible;
@@ -92,13 +85,9 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
-                Add_commande.Visibility = Visibility.Visible;
-                Add_contenu_bouquet.Visibility = Visibility.Visible;
-                Add_contenu_produit.Visibility = Visibility.Visible;
-                Edit_client.Visibility = Visibility.Visible;
-                Edit_commande.Visibility = Visibility.Visible;
-                Edit_contenu_bouquet.Visibility = Visibility.Visible;
-                Edit_contenu_produit.Visibility = Visibility.Visible;
+                AddEdit_commande.Visibility = Visibility.Visible;
+                AddEdit_contenu_bouquet.Visibility = Visibility.Visible;
+                AddEdit_contenu_produit.Visibility = Visibility.Visible;
 
             }
             else
@@ -113,17 +102,12 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAjouter_client(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_client(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_client();
             w.Show();
         }
 
-        private void ButtonEdit_client(object sender, RoutedEventArgs e)
-        {
-            var w = new AddEdit_client();
-            w.Show();
-        }
 
         private void ButtonDel_client(object sender, RoutedEventArgs e)
         {
@@ -135,84 +119,61 @@ namespace Projet_BDD_Fleurs
             */
         }
 
-        private void ButtonAjouter_magasin(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_magasin(object sender, RoutedEventArgs e)
         {
-
+            var w = new AddEdit_magasin();
+            w.Show();
         }
 
-        private void ButtonEdit_magasin(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void ButtonDel_magasin(object sender, RoutedEventArgs e)
         {
 
         }
-        private void ButtonAjouter_produit(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_produit(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ButtonEdit_produit(object sender, RoutedEventArgs e)
-        {
-
+            var w = new AddEdit_produit();
+            w.Show();
         }
 
         private void ButtonDel_produit(object sender, RoutedEventArgs e)
         {
 
         }
-        private void ButtonAjouter_bouquet(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_bouquet(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ButtonEdit_bouquet(object sender, RoutedEventArgs e)
-        {
-
+            var w = new AddEdit_bouquet();
+            w.Show();
         }
 
         private void ButtonDel_bouquet(object sender, RoutedEventArgs e)
         {
 
         }
-        private void ButtonAjouter_commande(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_commande(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ButtonEdit_commande(object sender, RoutedEventArgs e)
-        {
-
+            var w = new AddEdit_commande();
+            w.Show();
         }
 
         private void ButtonDel_commande(object sender, RoutedEventArgs e)
         {
 
         }
-        private void ButtonAjouter_contenuproduit(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_contenuproduit(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ButtonEdit_contenuproduit(object sender, RoutedEventArgs e)
-        {
-
+            var w = new AddEdit_contenuproduit();
+            w.Show();
         }
 
         private void ButtonDel_contenuproduit(object sender, RoutedEventArgs e)
         {
 
         }
-        private void ButtonAjouter_contenubouquet(object sender, RoutedEventArgs e)
+        private void ButtonAddEdit_contenubouquet(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void ButtonEdit_contenubouquet(object sender, RoutedEventArgs e)
-        {
-
+            var w = new AddEdit_contenubouquet();
+            w.Show();
         }
 
         private void ButtonDel_contenubouquet(object sender, RoutedEventArgs e)
