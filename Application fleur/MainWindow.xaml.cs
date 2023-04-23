@@ -51,6 +51,27 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
+                Add_bouquet.Visibility = Visibility.Visible;
+                Add_client.Visibility = Visibility.Visible;
+                Add_commande.Visibility = Visibility.Visible;
+                Add_contenu_bouquet.Visibility = Visibility.Visible;
+                Add_contenu_produit.Visibility = Visibility.Visible;
+                Add_magasin.Visibility = Visibility.Visible;
+                Add_produit.Visibility = Visibility.Visible;
+                Edit_bouquet.Visibility = Visibility.Visible;
+                Edit_client.Visibility = Visibility.Visible;
+                Edit_commande.Visibility = Visibility.Visible;
+                Edit_contenu_bouquet.Visibility = Visibility.Visible;
+                Edit_contenu_produit.Visibility = Visibility.Visible;
+                Edit_magasin.Visibility = Visibility.Visible;
+                Edit_produit.Visibility = Visibility.Visible;
+                Del_bouquet.Visibility = Visibility.Visible;
+                Del_client.Visibility = Visibility.Visible;
+                Del_commande.Visibility = Visibility.Visible;
+                Del_contenu_bouquet.Visibility = Visibility.Visible;
+                Del_contenu_produit.Visibility = Visibility.Visible;
+                Del_magasin.Visibility = Visibility.Visible;
+                Del_produit.Visibility = Visibility.Visible;
             }
             else if (email == "bozo" && password == "bozo")
             {
@@ -71,6 +92,13 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
+                Add_commande.Visibility = Visibility.Visible;
+                Add_contenu_bouquet.Visibility = Visibility.Visible;
+                Add_contenu_produit.Visibility = Visibility.Visible;
+                Edit_client.Visibility = Visibility.Visible;
+                Edit_commande.Visibility = Visibility.Visible;
+                Edit_contenu_bouquet.Visibility = Visibility.Visible;
+                Edit_contenu_produit.Visibility = Visibility.Visible;
 
             }
             else
