@@ -1,0 +1,39 @@
+﻿<Window x:Class="Projet_BDD_Fleurs.AddEdit_client"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_fleur"
+        mc:Ignorable="d"
+        Title="AddEdit_client" Height="400" Width="300">
+    <Grid Background="DimGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="5,5,0,0" Text="Nom :" Foreground="White" />
+        <TextBox Margin="5,25,150,55" x:Name="nom" />
+
+        <TextBlock Margin="150,5,10,0" Text="Prénom :" Foreground="White" />
+        <TextBox Margin="150,25,5,55" x:Name="prenom" />
+
+        <TextBlock Margin="5,55,0,0" Text="Email :" Foreground="White" />
+        <TextBox Margin="5,80,5,0" x:Name="Email" />
+
+        <TextBlock Margin="5,10,0,223" Text="Carte de crédit :" Foreground="White" Grid.Row="1" />
+        <TextBox Margin="5,30,5,223" x:Name="carte_de_crédit" Grid.Row="1" />
+
+        <TextBlock Margin="5,62,0,166" Text="Mot de passe :" Foreground="White" Grid.Row="1" />
+        <PasswordBox Margin="5,87,5,166" x:Name="mot_de_passe" Grid.Row="1" />
+
+        <TextBlock Margin="5,119,0,109" Text="Numéro de téléphone :" Foreground="White" Grid.Row="1" />
+        <TextBox Margin="5,144,5,109" x:Name="num_telephone" Grid.Row="1" />
+
+        <TextBlock Margin="5,178,0,50" Text="Adresse :" Foreground="White" Grid.Row="1" />
+        <TextBox Margin="5,203,5,50" x:Name="adresse" Grid.Row="1" />
+        <Button Content="Valider" Click="ButtonValider_client" HorizontalAlignment="Left" Margin="157,241,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <Button Content="Annuler" Click="ButtonAnnuler_client" HorizontalAlignment="Left" Margin="5,241,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+
+
+    </Grid>
+</Window>

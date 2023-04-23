@@ -1,0 +1,201 @@
+﻿<Window x:Class="Projet_BDD_Fleurs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_fleur"
+        mc:Ignorable="d"
+        Title="Projet Fleur" Height="600" Width="1000">
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBlock Text="LE POUVOIR DES FLEURS" FontSize="40" FontWeight="Bold" Foreground="Black" />
+        </StackPanel>
+
+        <TabControl Grid.Row="1" Background="WhiteSmoke" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Accueil">
+                <StackPanel Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                    <TextBlock TextAlignment="Center" Text="Please Register" FontSize="30" FontWeight="Bold" />
+                    <TextBlock Text="Email :" Margin="10 20 0 10" FontSize="10" FontWeight="Bold"  />
+                    <TextBox Name="Email" Margin="0 0 0 10" Width="300" Height="30" FontSize="16" BorderBrush="Black" BorderThickness="2"/>
+                    <TextBlock Text="Mot de passe :" Margin="10 0 0 10" FontSize="10" FontWeight="Bold"  />
+                    <PasswordBox Name="Mot_de_passe" Width="300" Height="30" FontSize="16" BorderBrush="Black" BorderThickness="2" />
+                    <Button Margin="0 20 0 0" Width="150" Height="40" FontSize="16" Background="LightSlateGray" Foreground="White" Content="Connexion" Click="ConnexionButton_Click" />
+                </StackPanel>
+            </TabItem>
+            <TabItem Name="Onglet_Client" Header="Client" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des clients" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding clients}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="Courriel" Binding="{Binding courriel}" Width="Auto" />
+                            <DataGridTextColumn Header="Nom" Binding="{Binding nom}" Width="Auto" />
+                            <DataGridTextColumn Header="Prénom" Binding="{Binding prenom}" Width="Auto" />
+                            <DataGridTextColumn Header="Numéro de téléphone" Binding="{Binding num_tel}" Width="Auto" />
+                            <DataGridTextColumn Header="Mot de passe" Binding="{Binding mdp}" Width="Auto" />
+                            <DataGridTextColumn Header="Carte de crédit" Binding="{Binding adresse_facturation}" Width="Auto" />
+                            <DataGridTextColumn Header="Statut de fidélité" Binding="{Binding carte_credit}" Width="Auto" />
+                            <DataGridTextColumn Header="Adresse de facturation" Binding="{Binding statut_fidelite}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Magasin" Header="Magasin" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des magasins" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding magasin}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="Adresse" Binding="{Binding adresse}" Width="Auto" />
+                            <DataGridTextColumn Header="Ville" Binding="{Binding ville}" Width="Auto" />
+                            <DataGridTextColumn Header="Nom" Binding="{Binding nom_magasin}" Width="Auto" />
+                            <DataGridTextColumn Header="Chef" Binding="{Binding chef_magasin}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Produit" Header="Produit" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des produits" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding nom_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="Stock" Binding="{Binding stock_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="Prix" Binding="{Binding prix_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="Disponibilité" Binding="{Binding dispo_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Bouquet" Header="Bouquet" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des bouquets" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nom" Binding="{Binding nom_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="Composition" Binding="{Binding composition_fleurs}" Width="Auto" />
+                            <DataGridTextColumn Header="Stock" Binding="{Binding stock_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="Prix" Binding="{Binding prix_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="Disponibilité" Binding="{Binding categorie_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Commande" Header="Commande" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des commandes" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding commande}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Numéro de commande" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="Date de commande" Binding="{Binding date_commande}" Width="Auto" />
+                            <DataGridTextColumn Header="Adresse de livraison" Binding="{Binding adresse_livraison}" Width="Auto" />
+                            <DataGridTextColumn Header="Message" Binding="{Binding message}" Width="Auto" />
+                            <DataGridTextColumn Header="Date de livraison" Binding="{Binding date_livraison}" Width="Auto" />
+                            <DataGridTextColumn Header="Etat de commande" Binding="{Binding etat_commande}" Width="Auto" />
+                            <DataGridTextColumn Header="ID client" Binding="{Binding id_client}" Width="Auto" />
+                            <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Contenu_commande_produit" Header="Contenu_commande_produit" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des produits dans la commande" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding contenant_produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
+                            <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_produit}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Contenu_commande_bouquet" Header="Contenu_commande_bouquet" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Liste des bouquets dans la commande" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding contenant_bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
+                            <DataGridTextColumn Header="Nom du bouquet" Binding="{Binding nom_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_bouquet}" Width="*" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+        <Button Content="Ajouter client" Click="ButtonAjouter_client" HorizontalAlignment="Left" Margin="760,121,0,0" Grid.Row="1" VerticalAlignment="Top" Width="74"/>
+
+    </Grid>
+
+</Window>
