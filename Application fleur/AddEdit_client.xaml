@@ -5,34 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Application_fleur"
         mc:Ignorable="d"
-        Title="AddEdit_client" Height="400" Width="300">
+        Title="AddEdit_client" Height="400" Width="350">
     <Grid Background="DimGray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Margin="5,5,0,0" Text="Nom :" Foreground="White" />
-        <TextBox Margin="5,25,150,55" x:Name="nom" />
+        <TextBlock Margin="5,10,0,57" Text="Nom :" Foreground="White" />
+        <TextBox Margin="5,37,177,307" x:Name="nom" />
 
-        <TextBlock Margin="150,5,10,0" Text="Prénom :" Foreground="White" />
-        <TextBox Margin="150,25,5,55" x:Name="prenom" />
+        <TextBlock Margin="177,10,-167,0" Text="Prenom :" Foreground="White" />
+        <TextBox Margin="177,37,5,307" x:Name="prenom" />
 
-        <TextBlock Margin="5,55,0,0" Text="Email :" Foreground="White" />
-        <TextBox Margin="5,80,5,0" x:Name="Email" />
+        <TextBlock Margin="5,67,0,16" Text="Email :" Foreground="White" />
+        <TextBox Margin="5,92,5,252" x:Name="Email" />
 
-        <TextBlock Margin="5,10,0,223" Text="Carte de crédit :" Foreground="White" Grid.Row="1" />
-        <TextBox Margin="5,30,5,223" x:Name="carte_de_crédit" Grid.Row="1" />
+        <TextBlock Margin="5,122,0,28" Text="Carte de crédit :" Foreground="White"   />
+        <TextBox Margin="5,147,5,197" x:Name="carte_de_crédit"  />
 
-        <TextBlock Margin="5,62,0,166" Text="Mot de passe :" Foreground="White" Grid.Row="1" />
-        <PasswordBox Margin="5,87,5,166" x:Name="mot_de_passe" Grid.Row="1" />
+        <TextBlock Margin="5,177,0,42" Text="Mot de passe :" Foreground="White"/>
+        <PasswordBox Margin="5,201,5,143" x:Name="mot_de_passe"  />
 
-        <TextBlock Margin="5,119,0,109" Text="Numéro de téléphone :" Foreground="White" Grid.Row="1" />
-        <TextBox Margin="5,144,5,109" x:Name="num_telephone" Grid.Row="1" />
+        <TextBlock Margin="5,231,0,57" Text="Numéro de téléphone :" Foreground="White"  />
+        <TextBox Margin="5,253,5,91" x:Name="num_telephone"  />
 
-        <TextBlock Margin="5,178,0,50" Text="Adresse :" Foreground="White" Grid.Row="1" />
-        <TextBox Margin="5,203,5,50" x:Name="adresse" Grid.Row="1" />
-        <Button Content="Valider" Click="ButtonValider_client" HorizontalAlignment="Left" Margin="157,241,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
-        <Button Content="Annuler" Click="ButtonAnnuler_client" HorizontalAlignment="Left" Margin="5,241,0,0" Grid.Row="1" VerticalAlignment="Top" Width="130"/>
+        <TextBlock Margin="5,283,0,63" Text="Adresse :" Foreground="White"  />
+        <TextBox Margin="5,305,5,39" x:Name="adresse"  />
+        
+        <Button Content="Valider" Click="ButtonValider_client" HorizontalAlignment="Left" Margin="182,341,0,0" VerticalAlignment="Top" Width="155"/>
+        <Button Content="Annuler" Click="ButtonAnnuler_client" HorizontalAlignment="Left" Margin="5,341,0,0" VerticalAlignment="Top" Width="155"/>
 
 
     </Grid>

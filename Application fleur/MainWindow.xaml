@@ -52,6 +52,7 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
+                    <Button Content="Ajouter client" Click="ButtonAjouter_client" HorizontalAlignment="Left" Margin="760,121,0,0" Grid.Row="1" VerticalAlignment="Top" Width="74"/>
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Magasin" Header="Magasin" Visibility="Collapsed">
@@ -194,7 +195,7 @@
             </TabItem>
 
         </TabControl>
-        <Button Content="Ajouter client" Click="ButtonAjouter_client" HorizontalAlignment="Left" Margin="760,121,0,0" Grid.Row="1" VerticalAlignment="Top" Width="74"/>
+        
 
     </Grid>
 
