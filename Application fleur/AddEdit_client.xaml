@@ -8,6 +8,7 @@
         Title="AddEdit_client" Height="400" Width="350">
     <Grid Background="DimGray">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Margin="5,10,0,57" Text="Nom :" Foreground="White" />
