@@ -59,11 +59,14 @@ namespace Projet_BDD_Fleurs
             command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
             command.ExecuteNonQuery();
             connection.Close();
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
         }
 
         private void ButtonAnnuler_client(object sender, RoutedEventArgs e)
         {
-
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
         }
     }
 }

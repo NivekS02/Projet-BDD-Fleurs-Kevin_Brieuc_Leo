@@ -90,5 +90,106 @@ namespace Projet_BDD_Fleurs
             var w = new AddEdit_client();
             w.Show();
         }
+
+        private void ButtonEdit_client(object sender, RoutedEventArgs e)
+        {
+            var w = new AddEdit_client();
+            w.Show();
+        }
+
+        private void ButtonDel_client(object sender, RoutedEventArgs e)
+        {
+            /*
+            connection.Open();
+            string query = "DELETE from client where id_client=@id_client";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@id_client", id_client);
+            */
+        }
+
+        private void ButtonAjouter_magasin(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_magasin(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_magasin(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAjouter_produit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_produit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_produit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAjouter_bouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_bouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_bouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAjouter_commande(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_commande(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_commande(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAjouter_contenuproduit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_contenuproduit(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_contenuproduit(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ButtonAjouter_contenubouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonEdit_contenubouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDel_contenubouquet(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -14,7 +14,7 @@
         <TextBlock Margin="5,10,0,57" Text="Nom :" Foreground="White" />
         <TextBox Margin="5,37,177,307" x:Name="nom" />
 
-        <TextBlock Margin="177,10,-167,0" Text="Prenom :" Foreground="White" />
+        <TextBlock Margin="177,10,0,0" Text="Prenom :" Foreground="White" />
         <TextBox Margin="177,37,5,307" x:Name="prenom" />
 
         <TextBlock Margin="5,67,0,16" Text="Email :" Foreground="White" />
