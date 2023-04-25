@@ -29,7 +29,6 @@ namespace Projet_BDD_Fleurs
         private string mdp_client;
         private string num_tel_client;
         private string adresse_client;
-        private int modification;
 
         public AddEdit_client()
         {
@@ -51,34 +50,16 @@ namespace Projet_BDD_Fleurs
             connection.Open();
             string query = "";
             MySqlCommand command = new MySqlCommand(query, connection);
-            if (modif.Text == "")
-            {
-                query = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_client", nom_client);
-                command.Parameters.AddWithValue("@prenom_client", prenom_client);
-                command.Parameters.AddWithValue("@courriel_client", courriel_client);
-                command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
-                command.Parameters.AddWithValue("@mdp_client", mdp_client);
-                command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
-                command.Parameters.AddWithValue("@adresse_client", adresse_client);
-                command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
-            }
-            else
-            {
-                modification = Convert.ToInt32(modif.Text);
-                query = "UPDATE client set courriel=@courriel_client,nom=@nom_client,prenom=@prenom_client,num_tel=@num_tel_client,mdp=@mdp_client,adresse_facturation=@adresse_client,carte_credit=@carte_de_credit_client,statut_fidelite=@statut_fidelite where id_client=@id_client;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_client", nom_client);
-                command.Parameters.AddWithValue("@prenom_client", prenom_client);
-                command.Parameters.AddWithValue("@courriel_client", courriel_client);
-                command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
-                command.Parameters.AddWithValue("@mdp_client", mdp_client);
-                command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
-                command.Parameters.AddWithValue("@adresse_client", adresse_client);
-                command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
-                command.Parameters.AddWithValue("@id_client", modification);
-            }
+            query = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@nom_client", nom_client);
+            command.Parameters.AddWithValue("@prenom_client", prenom_client);
+            command.Parameters.AddWithValue("@courriel_client", courriel_client);
+            command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
+            command.Parameters.AddWithValue("@mdp_client", mdp_client);
+            command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
+            command.Parameters.AddWithValue("@adresse_client", adresse_client);
+            command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
             command.ExecuteNonQuery();
             connection.Close();
             Window activeWindow = Window.GetWindow(this);

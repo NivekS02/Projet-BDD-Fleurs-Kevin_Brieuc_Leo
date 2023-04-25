@@ -51,13 +51,13 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
-                AddEdit_bouquet.Visibility = Visibility.Visible;
-                AddEdit_client.Visibility = Visibility.Visible;
-                AddEdit_commande.Visibility = Visibility.Visible;
-                AddEdit_contenu_bouquet.Visibility = Visibility.Visible;
-                AddEdit_contenu_produit.Visibility = Visibility.Visible;
-                AddEdit_magasin.Visibility = Visibility.Visible;
-                AddEdit_produit.Visibility = Visibility.Visible;
+                Add_bouquet.Visibility = Visibility.Visible;
+                Add_client.Visibility = Visibility.Visible;
+                Add_commande.Visibility = Visibility.Visible;
+                Add_contenu_bouquet.Visibility = Visibility.Visible;
+                Add_contenu_produit.Visibility = Visibility.Visible;
+                Add_magasin.Visibility = Visibility.Visible;
+                Add_produit.Visibility = Visibility.Visible;
                 Del_bouquet.Visibility = Visibility.Visible;
                 Del_client.Visibility = Visibility.Visible;
                 Del_commande.Visibility = Visibility.Visible;
@@ -75,8 +75,22 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
+                Add_bouquet.Visibility = Visibility.Collapsed;
+                Add_client.Visibility = Visibility.Collapsed;
+                Add_commande.Visibility = Visibility.Collapsed;
+                Add_contenu_bouquet.Visibility = Visibility.Collapsed;
+                Add_contenu_produit.Visibility = Visibility.Collapsed;
+                Add_magasin.Visibility = Visibility.Collapsed;
+                Add_produit.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
+                Del_commande.Visibility = Visibility.Collapsed;
+                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
+                Del_contenu_produit.Visibility = Visibility.Collapsed;
+                Del_magasin.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
             }
-            else if (compteur != 0)
+            else if (compteur > 0)
             {
                 Onglet_Client.Visibility = Visibility.Visible;
                 Onglet_Magasin.Visibility = Visibility.Visible;
@@ -85,10 +99,20 @@ namespace Projet_BDD_Fleurs
                 Onglet_Commande.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_produit.Visibility = Visibility.Visible;
                 Onglet_Contenu_commande_bouquet.Visibility = Visibility.Visible;
-                AddEdit_commande.Visibility = Visibility.Visible;
-                AddEdit_contenu_bouquet.Visibility = Visibility.Visible;
-                AddEdit_contenu_produit.Visibility = Visibility.Visible;
-
+                Add_bouquet.Visibility = Visibility.Collapsed;
+                Add_client.Visibility = Visibility.Collapsed;
+                Add_commande.Visibility = Visibility.Visible;
+                Add_contenu_bouquet.Visibility = Visibility.Visible;
+                Add_contenu_produit.Visibility = Visibility.Visible;
+                Add_magasin.Visibility = Visibility.Collapsed;
+                Add_produit.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
+                Del_commande.Visibility = Visibility.Collapsed;
+                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
+                Del_contenu_produit.Visibility = Visibility.Collapsed;
+                Del_magasin.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -102,7 +126,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_client(object sender, RoutedEventArgs e)
+        private void ButtonAdd_client(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_client();
             w.Show();
@@ -119,7 +143,7 @@ namespace Projet_BDD_Fleurs
             */
         }
 
-        private void ButtonAddEdit_magasin(object sender, RoutedEventArgs e)
+        private void ButtonAdd_magasin(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_magasin();
             w.Show();
@@ -130,7 +154,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_produit(object sender, RoutedEventArgs e)
+        private void ButtonAdd_produit(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_produit();
             w.Show();
@@ -140,7 +164,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_bouquet(object sender, RoutedEventArgs e)
+        private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_bouquet();
             w.Show();
@@ -150,7 +174,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_commande(object sender, RoutedEventArgs e)
+        private void ButtonAdd_commande(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_commande();
             w.Show();
@@ -160,7 +184,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_contenuproduit(object sender, RoutedEventArgs e)
+        private void ButtonAdd_contenuproduit(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_contenuproduit();
             w.Show();
@@ -170,7 +194,7 @@ namespace Projet_BDD_Fleurs
         {
 
         }
-        private void ButtonAddEdit_contenubouquet(object sender, RoutedEventArgs e)
+        private void ButtonAdd_contenubouquet(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_contenubouquet();
             w.Show();

@@ -27,8 +27,6 @@ namespace Projet_BDD_Fleurs
         private float prix;
         private string categorie;
         private int ID;
-        private int modification_id;
-        private string modification_bouquet;
 
         public AddEdit_bouquet()
         {
@@ -52,41 +50,16 @@ namespace Projet_BDD_Fleurs
             categorie = categorie_bouquet.Text;
             ID = Convert.ToInt32(id_magasin.Text);
             string query = "";
-
             MySqlCommand command = new MySqlCommand(query, connection);
-            if (modif_id.Text == "" && modif_bouquet.Text=="")
-            {
-                query = "INSERT INTO bouquet (nom_bouquet,composition_fleurs,stock_bouquet,prix_bouquet,categorie_bouquet,id_magasin) VALUES (@nom_bouquet,@composition_fleurs,@stock_bouquet,@prix_bouquet,@categorie_bouquet,@id_magasin)";
-                connection.Open();
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_bouquet", nom);
-                command.Parameters.AddWithValue("@composition_fleurs", composition);
-                command.Parameters.AddWithValue("@stock_bouquet", stock);
-                command.Parameters.AddWithValue("@prix_bouquet", prix);
-                command.Parameters.AddWithValue("@categorie_bouquet", categorie);
-                command.Parameters.AddWithValue("@id_magasin", ID);
-            }
-            else if (modif_id.Text != "" && modif_bouquet.Text != "")
-            {
-                modification_id = Convert.ToInt32(modif_id.Text);
-                modification_bouquet = modif_bouquet.Text;
-                query = "UPDATE bouquet set nom_bouquet=@nom_bouquet,composition_fleurs=@composition_fleurs,stock_bouquet=@stock_bouquet,prix_bouquet=@prix_bouquet,categorie_bouquet=@categorie_bouquet,id_magasin=@id_magasin where nom_bouquet=@modif_bouquet and id_magasin=@modif_id;";
-                connection.Open();
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_bouquet", nom);
-                command.Parameters.AddWithValue("@composition_fleurs", composition);
-                command.Parameters.AddWithValue("@stock_bouquet", stock);
-                command.Parameters.AddWithValue("@prix_bouquet", prix);
-                command.Parameters.AddWithValue("@categorie_bouquet", categorie);
-                command.Parameters.AddWithValue("@id_magasin", ID);
-                command.Parameters.AddWithValue("@modif_bouquet", modif_bouquet);
-                command.Parameters.AddWithValue("@modif_id", modification_id);
-            }
-            else
-            {
-                MessageBox.Show("Valeurs entrées incomplètes");
-                return;
-            }
+            query = "INSERT INTO bouquet (nom_bouquet,composition_fleurs,stock_bouquet,prix_bouquet,categorie_bouquet,id_magasin) VALUES (@nom_bouquet,@composition_fleurs,@stock_bouquet,@prix_bouquet,@categorie_bouquet,@id_magasin)";
+            connection.Open();
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@nom_bouquet", nom);
+            command.Parameters.AddWithValue("@composition_fleurs", composition);
+            command.Parameters.AddWithValue("@stock_bouquet", stock);
+            command.Parameters.AddWithValue("@prix_bouquet", prix);
+            command.Parameters.AddWithValue("@categorie_bouquet", categorie);
+            command.Parameters.AddWithValue("@id_magasin", ID);
             command.ExecuteNonQuery();
             connection.Close();
             Window activeWindow = Window.GetWindow(this);

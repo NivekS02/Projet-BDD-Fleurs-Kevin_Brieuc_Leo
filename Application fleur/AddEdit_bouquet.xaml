@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Application_fleur"
         mc:Ignorable="d"
-        Title="AddEdit_bouquet" Height="419" Width="300">
+        Title="AddEdit_bouquet" Height="370" Width="300">
     <Grid Background="DimGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,17 +27,10 @@
         <TextBlock Margin="5,197,0,91" Text="Catégorie :" Foreground="White"  />
         <TextBox Margin="5,221,5,137" x:Name="categorie_bouquet"  />
 
-        <TextBlock Margin="5,248,0,40" Foreground="White" Text=" ID magasin :"/>
+        <TextBlock Margin="5,248,0,40" Foreground="White" Text="ID magasin :"/>
         <TextBox Margin="5,271,5,87" x:Name="id_magasin"  />
 
-        <TextBlock Margin="5,294,0,52" Foreground="White"  ><Run Text="Modification"/><Run Text=" :"/></TextBlock>
-        <TextBlock Margin="5,315,189,31" FontSize="8" Foreground="White"  ><Run Text="Nom "/><Run Text="du bouquet "/><Run Text="modifié"/><Run Text=":"/><Run Text=" "/></TextBlock>
-        <TextBox Margin="5,329,157,29" x:Name="modif_bouquet"  />
-
-        <TextBlock Margin="157,315,37,31" FontSize="8" Foreground="White"  ><Run Text="ID du magasin "/><Run Text="modifié"/><Run Text=":"/><Run Text=" "/></TextBlock>
-        <TextBox x:Name="modif_id" Margin="157,329,5,29" />
-
-        <Button Content="Valider" Click="ButtonValider_bouquet" HorizontalAlignment="Left" Margin="157,361,0,0" VerticalAlignment="Top" Width="130" Grid.RowSpan="2"/>
-        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,361,0,0" VerticalAlignment="Top" Width="130" Grid.RowSpan="2"/>
+        <Button Content="Valider" Click="ButtonValider_bouquet" HorizontalAlignment="Left" Margin="157,309,0,0" VerticalAlignment="Top" Width="130"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,309,0,0" VerticalAlignment="Top" Width="130"/>
     </Grid>
 </Window>
