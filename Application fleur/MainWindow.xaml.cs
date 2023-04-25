@@ -116,6 +116,27 @@ namespace Projet_BDD_Fleurs
             }
             else
             {
+                Onglet_Client.Visibility = Visibility.Collapsed;
+                Onglet_Magasin.Visibility = Visibility.Collapsed;
+                Onglet_Produit.Visibility = Visibility.Collapsed;
+                Onglet_Bouquet.Visibility = Visibility.Collapsed;
+                Onglet_Commande.Visibility = Visibility.Collapsed;
+                Onglet_Contenu_commande_produit.Visibility = Visibility.Collapsed;
+                Onglet_Contenu_commande_bouquet.Visibility = Visibility.Collapsed;
+                Add_bouquet.Visibility = Visibility.Collapsed;
+                Add_client.Visibility = Visibility.Collapsed;
+                Add_commande.Visibility = Visibility.Collapsed;
+                Add_contenu_bouquet.Visibility = Visibility.Collapsed;
+                Add_contenu_produit.Visibility = Visibility.Collapsed;
+                Add_magasin.Visibility = Visibility.Collapsed;
+                Add_produit.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
+                Del_commande.Visibility = Visibility.Collapsed;
+                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
+                Del_contenu_produit.Visibility = Visibility.Collapsed;
+                Del_magasin.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Mot de passe ou email entré incorrect");
             }
             connection.Close();
@@ -203,6 +224,12 @@ namespace Projet_BDD_Fleurs
         private void ButtonDel_contenubouquet(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Signup_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var w = new AddEdit_client();
+            w.Show();
         }
     }
 }
