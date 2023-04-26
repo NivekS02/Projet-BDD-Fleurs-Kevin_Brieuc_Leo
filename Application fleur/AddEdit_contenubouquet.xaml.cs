@@ -21,8 +21,8 @@ namespace Projet_BDD_Fleurs
     public partial class AddEdit_contenubouquet : Window
     {
         public static MySqlConnection connection;
-        private int numero_commande;
         private string nom;
+        private int numero_commande;
         private int quantite;
         public AddEdit_contenubouquet()
         {
@@ -39,12 +39,14 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_contenubouquet(object sender, RoutedEventArgs e)
         {
-            nom = nom_bouquet.Text;
-            numero_commande = Convert.ToInt32(num_commande.Text);
-            quantite = Convert.ToInt32(quantite_bouquet.Text);
+            string query = "Select count(*) from commande;";
             connection.Open();
-            string query = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@quantite_bouquet)";
             MySqlCommand command = new MySqlCommand(query, connection);
+            nom = nom_bouquet.Text;
+            quantite = Convert.ToInt32(quantite_bouquet.Text);
+            numero_commande = Convert.ToInt32(command.ExecuteScalar())+1;
+            query = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@quantite_bouquet)";
+            command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@num_commande", numero_commande);
             command.Parameters.AddWithValue("@nom_bouquet", nom);
             command.Parameters.AddWithValue("@quantite_bouquet", quantite);
@@ -52,6 +54,48 @@ namespace Projet_BDD_Fleurs
             connection.Close();
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();
+        }
+
+        private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
+        {
+            string query = "Select count(*) from commande;";
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            nom = nom_bouquet.Text;
+            quantite = Convert.ToInt32(quantite_bouquet.Text);
+            numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
+            query = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@quantite_bouquet)";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@num_commande", numero_commande);
+            command.Parameters.AddWithValue("@nom_bouquet", nom);
+            command.Parameters.AddWithValue("@quantite_bouquet", quantite);
+            command.ExecuteNonQuery();
+            connection.Close();
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
+            var w = new AddEdit_contenubouquet();
+            w.Show();
+        }
+
+        private void ButtonAdd_produit(object sender, RoutedEventArgs e)
+        {
+            string query = "Select count(*) from commande;";
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            nom = nom_bouquet.Text;
+            quantite = Convert.ToInt32(quantite_bouquet.Text);
+            numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
+            query = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@quantite_bouquet)";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@num_commande", numero_commande);
+            command.Parameters.AddWithValue("@nom_bouquet", nom);
+            command.Parameters.AddWithValue("@quantite_bouquet", quantite);
+            command.ExecuteNonQuery();
+            connection.Close();
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
+            var w = new AddEdit_contenuproduit();
+            w.Show();
         }
     }
 }

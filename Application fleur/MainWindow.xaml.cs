@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Data;
+
+
 
 namespace Projet_BDD_Fleurs
 {
@@ -28,9 +31,11 @@ namespace Projet_BDD_Fleurs
 
         public MainWindow()
         {
+
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
+
         }
         private void ConnexionButton_Click(object sender, RoutedEventArgs e)
         {
@@ -54,17 +59,49 @@ namespace Projet_BDD_Fleurs
                 Add_bouquet.Visibility = Visibility.Visible;
                 Add_client.Visibility = Visibility.Visible;
                 Add_commande.Visibility = Visibility.Visible;
-                Add_contenu_bouquet.Visibility = Visibility.Visible;
-                Add_contenu_produit.Visibility = Visibility.Visible;
                 Add_magasin.Visibility = Visibility.Visible;
                 Add_produit.Visibility = Visibility.Visible;
-                Del_bouquet.Visibility = Visibility.Visible;
-                Del_client.Visibility = Visibility.Visible;
                 Del_commande.Visibility = Visibility.Visible;
-                Del_contenu_bouquet.Visibility = Visibility.Visible;
-                Del_contenu_produit.Visibility = Visibility.Visible;
-                Del_magasin.Visibility = Visibility.Visible;
-                Del_produit.Visibility = Visibility.Visible;
+                Refresh_client.Visibility = Visibility.Visible;
+                Refresh_bouquet.Visibility = Visibility.Visible;
+                Refresh_produit.Visibility = Visibility.Visible;
+                Refresh_commande.Visibility = Visibility.Visible;
+                Refresh_magasin.Visibility = Visibility.Visible;
+                string querybis = "SELECT * FROM client";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
+                DataTable dataTable = new DataTable("Client");
+                adapter.Fill(dataTable);
+                ClientDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM magasin";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Magasin");
+                adapter.Fill(dataTable);
+                MagasinDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM commande";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Commande");
+                adapter.Fill(dataTable);
+                CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Bouquet");
+                adapter.Fill(dataTable);
+                BouquetDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("produit");
+                adapter.Fill(dataTable);
+                ProduitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_produit");
+                adapter.Fill(dataTable);
+                Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_bouquet");
+                adapter.Fill(dataTable);
+                Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
             else if (email == "bozo" && password == "bozo")
             {
@@ -78,17 +115,49 @@ namespace Projet_BDD_Fleurs
                 Add_bouquet.Visibility = Visibility.Collapsed;
                 Add_client.Visibility = Visibility.Collapsed;
                 Add_commande.Visibility = Visibility.Collapsed;
-                Add_contenu_bouquet.Visibility = Visibility.Collapsed;
-                Add_contenu_produit.Visibility = Visibility.Collapsed;
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
-                Del_bouquet.Visibility = Visibility.Collapsed;
-                Del_client.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
-                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
-                Del_contenu_produit.Visibility = Visibility.Collapsed;
-                Del_magasin.Visibility = Visibility.Collapsed;
-                Del_produit.Visibility = Visibility.Collapsed;
+                Refresh_client.Visibility = Visibility.Visible;
+                Refresh_bouquet.Visibility = Visibility.Visible;
+                Refresh_produit.Visibility = Visibility.Visible;
+                Refresh_commande.Visibility = Visibility.Visible;
+                Refresh_magasin.Visibility = Visibility.Visible;
+                string querybis = "SELECT * FROM client";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
+                DataTable dataTable = new DataTable("Client");
+                adapter.Fill(dataTable);
+                ClientDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM magasin";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Magasin");
+                adapter.Fill(dataTable);
+                MagasinDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM commande";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Commande");
+                adapter.Fill(dataTable);
+                CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Bouquet");
+                adapter.Fill(dataTable);
+                BouquetDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("produit");
+                adapter.Fill(dataTable);
+                ProduitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_produit");
+                adapter.Fill(dataTable);
+                Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_bouquet");
+                adapter.Fill(dataTable);
+                Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
             else if (compteur > 0)
             {
@@ -102,17 +171,49 @@ namespace Projet_BDD_Fleurs
                 Add_bouquet.Visibility = Visibility.Collapsed;
                 Add_client.Visibility = Visibility.Collapsed;
                 Add_commande.Visibility = Visibility.Visible;
-                Add_contenu_bouquet.Visibility = Visibility.Visible;
-                Add_contenu_produit.Visibility = Visibility.Visible;
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
-                Del_bouquet.Visibility = Visibility.Collapsed;
-                Del_client.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
-                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
-                Del_contenu_produit.Visibility = Visibility.Collapsed;
-                Del_magasin.Visibility = Visibility.Collapsed;
-                Del_produit.Visibility = Visibility.Collapsed;
+                Refresh_client.Visibility = Visibility.Visible;
+                Refresh_bouquet.Visibility = Visibility.Visible;
+                Refresh_produit.Visibility = Visibility.Visible;
+                Refresh_commande.Visibility = Visibility.Visible;
+                Refresh_magasin.Visibility = Visibility.Visible;
+                string querybis = "SELECT * FROM client";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
+                DataTable dataTable = new DataTable("Client");
+                adapter.Fill(dataTable);
+                ClientDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM magasin";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Magasin");
+                adapter.Fill(dataTable);
+                MagasinDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM commande";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Commande");
+                adapter.Fill(dataTable);
+                CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Bouquet");
+                adapter.Fill(dataTable);
+                BouquetDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("produit");
+                adapter.Fill(dataTable);
+                ProduitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_produit";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_produit");
+                adapter.Fill(dataTable);
+                Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+                querybis = "SELECT * FROM contenant_bouquet";
+                adapter = new MySqlDataAdapter(querybis, connection);
+                dataTable = new DataTable("Contenant_bouquet");
+                adapter.Fill(dataTable);
+                Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
             else
             {
@@ -126,17 +227,14 @@ namespace Projet_BDD_Fleurs
                 Add_bouquet.Visibility = Visibility.Collapsed;
                 Add_client.Visibility = Visibility.Collapsed;
                 Add_commande.Visibility = Visibility.Collapsed;
-                Add_contenu_bouquet.Visibility = Visibility.Collapsed;
-                Add_contenu_produit.Visibility = Visibility.Collapsed;
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
-                Del_bouquet.Visibility = Visibility.Collapsed;
-                Del_client.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
-                Del_contenu_bouquet.Visibility = Visibility.Collapsed;
-                Del_contenu_produit.Visibility = Visibility.Collapsed;
-                Del_magasin.Visibility = Visibility.Collapsed;
-                Del_produit.Visibility = Visibility.Collapsed;
+                Refresh_client.Visibility = Visibility.Visible;
+                Refresh_bouquet.Visibility = Visibility.Visible;
+                Refresh_produit.Visibility = Visibility.Visible;
+                Refresh_commande.Visibility = Visibility.Visible;
+                Refresh_magasin.Visibility = Visibility.Visible;
                 MessageBox.Show("Mot de passe ou email entré incorrect");
             }
             connection.Close();
@@ -152,48 +250,20 @@ namespace Projet_BDD_Fleurs
             var w = new AddEdit_client();
             w.Show();
         }
-
-
-        private void ButtonDel_client(object sender, RoutedEventArgs e)
-        {
-            /*
-            connection.Open();
-            string query = "DELETE from client where id_client=@id_client";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_client", id_client);
-            */
-        }
-
         private void ButtonAdd_magasin(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_magasin();
             w.Show();
-        }
-
-
-        private void ButtonDel_magasin(object sender, RoutedEventArgs e)
-        {
-
         }
         private void ButtonAdd_produit(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_produit();
             w.Show();
         }
-
-        private void ButtonDel_produit(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_bouquet();
             w.Show();
-        }
-
-        private void ButtonDel_bouquet(object sender, RoutedEventArgs e)
-        {
-
         }
         private void ButtonAdd_commande(object sender, RoutedEventArgs e)
         {
@@ -203,33 +273,65 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonDel_commande(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void ButtonAdd_contenuproduit(object sender, RoutedEventArgs e)
-        {
-            var w = new AddEdit_contenuproduit();
+            var w = new Del_commande();
             w.Show();
-        }
-
-        private void ButtonDel_contenuproduit(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void ButtonAdd_contenubouquet(object sender, RoutedEventArgs e)
-        {
-            var w = new AddEdit_contenubouquet();
-            w.Show();
-        }
-
-        private void ButtonDel_contenubouquet(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Signup_Button_Click(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_client();
             w.Show();
+        }
+
+        private void RefreshButton_client(object sender, RoutedEventArgs e)
+        {
+            string query = "SELECT * FROM client";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+            DataTable dataTable = new DataTable("Client");
+            adapter.Fill(dataTable);
+            ClientDataGrid.ItemsSource = dataTable.DefaultView;
+        }
+        private void RefreshButton_magasin(object sender, RoutedEventArgs e)
+        {
+            string query = "SELECT * FROM magasin";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+            DataTable dataTable = new DataTable("Magasin");
+            adapter.Fill(dataTable);
+            MagasinDataGrid.ItemsSource = dataTable.DefaultView;
+        }
+        private void RefreshButton_produit(object sender, RoutedEventArgs e)
+        {
+            string query = "SELECT * FROM produit";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+            DataTable dataTable = new DataTable("Produit");
+            adapter.Fill(dataTable);
+            ProduitDataGrid.ItemsSource = dataTable.DefaultView;
+        }
+        private void RefreshButton_bouquet(object sender, RoutedEventArgs e)
+        {
+            string query = "SELECT * FROM bouquet";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+            DataTable dataTable = new DataTable("Bouquet");
+            adapter.Fill(dataTable);
+            BouquetDataGrid.ItemsSource = dataTable.DefaultView;
+        }
+        private void RefreshButton_commande(object sender, RoutedEventArgs e)
+        {
+            string query = "SELECT * FROM commande";
+            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+            DataTable dataTable = new DataTable("Commande");
+            adapter.Fill(dataTable);
+            CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+            query = "SELECT * FROM contenant_produit";
+            adapter = new MySqlDataAdapter(query, connection);
+            dataTable = new DataTable("Contenant_produit");
+            adapter.Fill(dataTable);
+            Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+            query = "SELECT * FROM contenant_bouquet";
+            adapter = new MySqlDataAdapter(query, connection);
+            dataTable = new DataTable("Contenant_bouquet");
+            adapter.Fill(dataTable);
+            Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
         }
     }
 }

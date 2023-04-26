@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Application_fleur"
+        xmlns:local="clr-namespace:Projet_BDD_Fleurs"
         mc:Ignorable="d"
         Title="Projet Fleur" Height="600" Width="1000">
     <Grid Background="LightGray">
@@ -39,10 +39,10 @@
                     <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Liste des clients" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
-
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding clients}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    
+                    <DataGrid x:Name="ClientDataGrid" Grid.Row="1" ItemsSource="{Binding client}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding id_client}" Width="Auto" />
                             <DataGridTextColumn Header="Courriel" Binding="{Binding courriel}" Width="Auto" />
                             <DataGridTextColumn Header="Nom" Binding="{Binding nom}" Width="Auto" />
                             <DataGridTextColumn Header="Prénom" Binding="{Binding prenom}" Width="Auto" />
@@ -53,9 +53,11 @@
                             <DataGridTextColumn Header="Adresse de facturation" Binding="{Binding statut_fidelite}" Width="*" />
 
                         </DataGrid.Columns>
+                        
                     </DataGrid>
                     <Button x:Name="Add_client" Content="Ajouter" Click="ButtonAdd_client" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
-                    <Button x:Name="Del_client" Content="Supprimer" Click="ButtonDel_client" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"  />
+                    <Button x:Name="Refresh_client" Content="Actualiser" Click="RefreshButton_client" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Magasin" Header="Magasin" Visibility="Collapsed">
@@ -69,9 +71,9 @@
                         <TextBlock Text="Liste des magasins" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding magasin}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="MagasinDataGrid" Grid.Row="1" ItemsSource="{Binding magasin}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding id_magasin}" Width="Auto" />
                             <DataGridTextColumn Header="Adresse" Binding="{Binding adresse}" Width="Auto" />
                             <DataGridTextColumn Header="Ville" Binding="{Binding ville}" Width="Auto" />
                             <DataGridTextColumn Header="Nom" Binding="{Binding nom_magasin}" Width="Auto" />
@@ -80,7 +82,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="Add_magasin" Content="Ajouter" Click="ButtonAdd_magasin" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65"/>
-                    <Button x:Name="Del_magasin" Content="Supprimer" Click="ButtonDel_magasin" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65"/>
+                    <Button x:Name="Refresh_magasin" Content="Actualiser" Click="RefreshButton_magasin" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Produit" Header="Produit" Visibility="Collapsed">
@@ -94,7 +96,7 @@
                         <TextBlock Text="Liste des produits" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="ProduitDataGrid" Grid.Row="1" ItemsSource="{Binding produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding nom_produit}" Width="Auto" />
                             <DataGridTextColumn Header="Stock" Binding="{Binding stock_produit}" Width="Auto" />
@@ -105,7 +107,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="Add_produit" Content="Ajouter" Click="ButtonAdd_produit" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
-                    <Button x:Name="Del_produit" Content="Supprimer" Click="ButtonDel_produit" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
+                    <Button x:Name="Refresh_produit" Content="Actualiser" Click="RefreshButton_produit" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Bouquet" Header="Bouquet" Visibility="Collapsed">
@@ -119,7 +121,7 @@
                         <TextBlock Text="Liste des bouquets" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="BouquetDataGrid" Grid.Row="1" ItemsSource="{Binding bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nom" Binding="{Binding nom_bouquet}" Width="Auto" />
                             <DataGridTextColumn Header="Composition" Binding="{Binding composition_fleurs}" Width="Auto" />
@@ -130,7 +132,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button x:Name="Add_bouquet" Content="Ajouter" Click="ButtonAdd_bouquet" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
-                    <Button x:Name="Del_bouquet" Content="Supprimer" Click="ButtonDel_bouquet" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
+                    <Button x:Name="Refresh_bouquet" Content="Actualiser" Click="RefreshButton_bouquet" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Commande" Header="Commande" Visibility="Collapsed">
@@ -144,9 +146,9 @@
                         <TextBlock Text="Liste des commandes" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding commande}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="CommandeDataGrid" Grid.Row="1" ItemsSource="{Binding commande}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Numéro de commande" Binding="{Binding}" Width="Auto" />
+                            <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
                             <DataGridTextColumn Header="Date de commande" Binding="{Binding date_commande}" Width="Auto" />
                             <DataGridTextColumn Header="Adresse de livraison" Binding="{Binding adresse_livraison}" Width="Auto" />
                             <DataGridTextColumn Header="Message" Binding="{Binding message}" Width="Auto" />
@@ -157,8 +159,9 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    <Button x:Name="Add_commande" Content="Ajouter" Click="ButtonAdd_commande" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
-                    <Button x:Name="Del_commande" Content="Supprimer" Click="ButtonDel_commande" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
+                    <Button x:Name="Add_commande" Content="Ajouter" Click="ButtonAdd_commande" HorizontalAlignment="Left" Margin="770,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Del_commande" Content="Supprimer" Click="ButtonDel_commande" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Refresh_commande" Content="Actualiser" Click="RefreshButton_commande" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
 
                 </Grid>
             </TabItem>
@@ -173,18 +176,14 @@
                         <TextBlock Text="Liste des produits dans la commande" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding contenant_produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="Contenant_produitDataGrid" Grid.Row="1" ItemsSource="{Binding contenant_produit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
                             <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_produit}" Width="Auto" />
                             <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_produit}" Width="*" />
 
                         </DataGrid.Columns>
-
-
                     </DataGrid>
-                    <Button x:Name="Add_contenu_produit" Content="Ajouter" Click="ButtonAdd_contenuproduit" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
-                    <Button x:Name="Del_contenu_produit" Content="Supprimer" Click="ButtonDel_contenuproduit" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
                 </Grid>
             </TabItem>
             <TabItem Name="Onglet_Contenu_commande_bouquet" Header="Contenu_commande_bouquet" Visibility="Collapsed">
@@ -198,19 +197,16 @@
                         <TextBlock Text="Liste des bouquets dans la commande" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding contenant_bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    <DataGrid x:Name="Contenant_bouquetDataGrid" Grid.Row="1" ItemsSource="{Binding contenant_bouquet}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="True" SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
-                            <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_bouquet}" Width="Auto" />
                             <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_bouquet}" Width="*" />
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    <Button x:Name="Add_contenu_bouquet" Content="Ajouter" Click="ButtonAdd_contenubouquet" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
-                    <Button x:Name="Del_contenu_bouquet" Content="Supprimer" Click="ButtonDel_contenubouquet" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
                 </Grid>
             </TabItem>
-
         </TabControl>
         
 
