@@ -27,7 +27,7 @@ namespace Projet_BDD_Fleurs
         private string email;
         private string password;
         public static MySqlConnection connection;
-
+        private int id_client;
 
         public MainWindow()
         {
@@ -42,8 +42,12 @@ namespace Projet_BDD_Fleurs
             email = Email.Text;
             password = Mot_de_passe.Password;
             connection.Open();
-            string query = "SELECT count(*) FROM client WHERE courriel = @email and mdp=@password";
+            string query = "SELECT id_client from client where courriel=@courriel_client;";
             MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@courriel_client", email);
+            id_client = Convert.ToInt32(command.ExecuteScalar());
+            query = "SELECT count(*) FROM client WHERE courriel = @email and mdp=@password";
+            command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@password", password);
             long compteur = (long)command.ExecuteScalar();
@@ -179,38 +183,47 @@ namespace Projet_BDD_Fleurs
                 Refresh_produit.Visibility = Visibility.Visible;
                 Refresh_commande.Visibility = Visibility.Visible;
                 Refresh_magasin.Visibility = Visibility.Visible;
-                string querybis = "SELECT * FROM client";
-                MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
+                MySqlCommand commandbis = new MySqlCommand();
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM client where id_client=@id_client;";
+                commandbis.Parameters.AddWithValue("@id_client", id_client);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(commandbis);
                 DataTable dataTable = new DataTable("Client");
                 adapter.Fill(dataTable);
                 ClientDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM magasin";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM magasin;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("Magasin");
                 adapter.Fill(dataTable);
                 MagasinDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM commande";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM commande where id_client=@id_client;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("Commande");
                 adapter.Fill(dataTable);
                 CommandeDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM bouquet";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM bouquet;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("Bouquet");
                 adapter.Fill(dataTable);
                 BouquetDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM produit";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM produit;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("produit");
                 adapter.Fill(dataTable);
                 ProduitDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM contenant_produit";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM contenant_produit NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("Contenant_produit");
                 adapter.Fill(dataTable);
                 Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
-                querybis = "SELECT * FROM contenant_bouquet";
-                adapter = new MySqlDataAdapter(querybis, connection);
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM contenant_bouquet NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(commandbis);
                 dataTable = new DataTable("Contenant_bouquet");
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
@@ -230,11 +243,6 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
-                Refresh_client.Visibility = Visibility.Visible;
-                Refresh_bouquet.Visibility = Visibility.Visible;
-                Refresh_produit.Visibility = Visibility.Visible;
-                Refresh_commande.Visibility = Visibility.Visible;
-                Refresh_magasin.Visibility = Visibility.Visible;
                 MessageBox.Show("Mot de passe ou email entré incorrect");
             }
             connection.Close();
@@ -285,11 +293,25 @@ namespace Projet_BDD_Fleurs
 
         private void RefreshButton_client(object sender, RoutedEventArgs e)
         {
-            string query = "SELECT * FROM client";
-            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-            DataTable dataTable = new DataTable("Client");
-            adapter.Fill(dataTable);
-            ClientDataGrid.ItemsSource = dataTable.DefaultView;
+            if(email!="bozo" && email != "root")
+            {
+                MySqlCommand commandbis = new MySqlCommand();
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM client where id_client=@id_client;";
+                commandbis.Parameters.AddWithValue("@id_client", id_client);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(commandbis);
+                DataTable dataTable = new DataTable("Client");
+                adapter.Fill(dataTable);
+                ClientDataGrid.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+                string query = "SELECT * FROM client";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable("Client");
+                adapter.Fill(dataTable);
+                ClientDataGrid.ItemsSource = dataTable.DefaultView;
+            }
         }
         private void RefreshButton_magasin(object sender, RoutedEventArgs e)
         {
@@ -317,21 +339,47 @@ namespace Projet_BDD_Fleurs
         }
         private void RefreshButton_commande(object sender, RoutedEventArgs e)
         {
-            string query = "SELECT * FROM commande";
-            MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-            DataTable dataTable = new DataTable("Commande");
-            adapter.Fill(dataTable);
-            CommandeDataGrid.ItemsSource = dataTable.DefaultView;
-            query = "SELECT * FROM contenant_produit";
-            adapter = new MySqlDataAdapter(query, connection);
-            dataTable = new DataTable("Contenant_produit");
-            adapter.Fill(dataTable);
-            Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
-            query = "SELECT * FROM contenant_bouquet";
-            adapter = new MySqlDataAdapter(query, connection);
-            dataTable = new DataTable("Contenant_bouquet");
-            adapter.Fill(dataTable);
-            Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
+            if(email!="bozo" && email != "root")
+            {
+                MySqlCommand commandbis = new MySqlCommand();
+                DataTable dataTable = new DataTable("Commande");
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM commande where id_client=@id_client;";
+                commandbis.Parameters.AddWithValue("@id_client", id_client);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(commandbis);
+                adapter.Fill(dataTable);
+                CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM contenant_produit NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(commandbis);
+                dataTable = new DataTable("Contenant_produit");
+                adapter.Fill(dataTable);
+                Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+                commandbis.Connection = connection;
+                commandbis.CommandText = "SELECT * FROM contenant_bouquet NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(commandbis);
+                dataTable = new DataTable("Contenant_bouquet");
+                adapter.Fill(dataTable);
+                Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
+            }
+            else
+            {
+                string query = "SELECT * FROM commande";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable("Commande");
+                adapter.Fill(dataTable);
+                CommandeDataGrid.ItemsSource = dataTable.DefaultView;
+                query = "SELECT * FROM contenant_produit";
+                adapter = new MySqlDataAdapter(query, connection);
+                dataTable = new DataTable("Contenant_produit");
+                adapter.Fill(dataTable);
+                Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
+                query = "SELECT * FROM contenant_bouquet";
+                adapter = new MySqlDataAdapter(query, connection);
+                dataTable = new DataTable("Contenant_bouquet");
+                adapter.Fill(dataTable);
+                Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
+            }
         }
     }
 }
