@@ -39,31 +39,38 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_client(object sender, RoutedEventArgs e)
         {
-            
-            nom_client = nom.Text;
-            prenom_client = prenom.Text;
-            courriel_client = Email.Text;
-            carte_de_credit_client = carte_de_crédit.Text;
-            mdp_client = mot_de_passe.Password;
-            num_tel_client = num_telephone.Text;
-            adresse_client = adresse.Text;
-            connection.Open();
-            string query = "";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            query = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
-            command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nom_client", nom_client);
-            command.Parameters.AddWithValue("@prenom_client", prenom_client);
-            command.Parameters.AddWithValue("@courriel_client", courriel_client);
-            command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
-            command.Parameters.AddWithValue("@mdp_client", mdp_client);
-            command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
-            command.Parameters.AddWithValue("@adresse_client", adresse_client);
-            command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
-            command.ExecuteNonQuery();
-            connection.Close();
-            Window activeWindow = Window.GetWindow(this);
-            activeWindow.Close();
+            if (!string.IsNullOrEmpty(nom.Text) && !string.IsNullOrEmpty(prenom.Text) && !string.IsNullOrEmpty(Email.Text) && !string.IsNullOrEmpty(carte_de_crédit.Text) && !string.IsNullOrEmpty(mot_de_passe.Password) && !string.IsNullOrEmpty(num_telephone.Text) && !string.IsNullOrEmpty(adresse.Text))
+            {
+                nom_client = nom.Text;
+                prenom_client = prenom.Text;
+                courriel_client = Email.Text;
+                carte_de_credit_client = carte_de_crédit.Text;
+                mdp_client = mot_de_passe.Password;
+                num_tel_client = num_telephone.Text;
+                adresse_client = adresse.Text;
+
+                connection.Open();
+                string query = "";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                query = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
+                command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nom_client", nom_client);
+                command.Parameters.AddWithValue("@prenom_client", prenom_client);
+                command.Parameters.AddWithValue("@courriel_client", courriel_client);
+                command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
+                command.Parameters.AddWithValue("@mdp_client", mdp_client);
+                command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
+                command.Parameters.AddWithValue("@adresse_client", adresse_client);
+                command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
+                command.ExecuteNonQuery();
+                connection.Close();
+                Window activeWindow = Window.GetWindow(this);
+                activeWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez remplir tous les champs.");
+            }
 
         }
 

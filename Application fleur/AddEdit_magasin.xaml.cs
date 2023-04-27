@@ -41,21 +41,29 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_magasin(object sender, RoutedEventArgs e)
         {
-            nom = nom_magasin.Text;
-            adresse = adresse_magasin.Text;
-            ville = ville_magasin.Text;
-            chef = chef_magasin.Text;
-            connection.Open();
-            string query = "INSERT INTO magasin (adresse,ville,nom_magasin,chef_magasin) VALUES (@adresse_magasin,@ville_magasin,@nom_magasin,@chef_magasin)";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nom_magasin", nom);
-            command.Parameters.AddWithValue("@adresse_magasin", adresse);
-            command.Parameters.AddWithValue("@ville_magasin", ville);
-            command.Parameters.AddWithValue("@chef_magasin", chef);
-            command.ExecuteNonQuery();
-            connection.Close();
-            Window activeWindow = Window.GetWindow(this);
-            activeWindow.Close();
+            if (!string.IsNullOrEmpty(adresse_magasin.Text) && !string.IsNullOrEmpty(ville_magasin.Text) && !string.IsNullOrEmpty(chef_magasin.Text) && !string.IsNullOrEmpty(nom_magasin.Text))
+            {
+                nom = nom_magasin.Text;
+                adresse = adresse_magasin.Text;
+                ville = ville_magasin.Text;
+                chef = chef_magasin.Text;
+                connection.Open();
+                string query = "INSERT INTO magasin (adresse,ville,nom_magasin,chef_magasin) VALUES (@adresse_magasin,@ville_magasin,@nom_magasin,@chef_magasin)";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nom_magasin", nom);
+                command.Parameters.AddWithValue("@adresse_magasin", adresse);
+                command.Parameters.AddWithValue("@ville_magasin", ville);
+                command.Parameters.AddWithValue("@chef_magasin", chef);
+                command.ExecuteNonQuery();
+                connection.Close();
+                Window activeWindow = Window.GetWindow(this);
+                activeWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez remplir tous les champs.");
+            }
+
         }
     }
 }

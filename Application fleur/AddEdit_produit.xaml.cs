@@ -36,23 +36,27 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_produit(object sender, RoutedEventArgs e)
         {
-            nom = nom_produit.Text;
-            stock = Convert.ToInt32(stock_produit.Text);
-            prix = float.Parse(prix_produit.Text);
-            dispo = dispo_produit.Text;
-            ID = Convert.ToInt32(id_magasin.Text);
-            connection.Open();
-            string query = "INSERT INTO produit (nom_produit,stock_produit,prix_produit,dispo_produit,id_magasin) VALUES (@nom_produit,@stock_produit,@prix_produit,@dispo_produit,@id_magasin)";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nom_produit", nom);
-            command.Parameters.AddWithValue("@stock_produit", stock);
-            command.Parameters.AddWithValue("@prix_produit", prix);
-            command.Parameters.AddWithValue("@dispo_produit", dispo);
-            command.Parameters.AddWithValue("@id_magasin", ID);
-            command.ExecuteNonQuery();
-            connection.Close();
-            Window activeWindow = Window.GetWindow(this);
-            activeWindow.Close();
+            if (!string.IsNullOrEmpty(nom_produit.Text) && !string.IsNullOrEmpty(dispo_produit.Text) && int.TryParse(stock_produit.Text, out stock) && float.TryParse(prix_produit.Text, out prix) && int.TryParse(id_magasin.Text, out ID) && ID>0)
+            {
+                nom = nom_produit.Text;
+                dispo = dispo_produit.Text;
+                connection.Open();
+                string query = "INSERT INTO produit (nom_produit,stock_produit,prix_produit,dispo_produit,id_magasin) VALUES (@nom_produit,@stock_produit,@prix_produit,@dispo_produit,@id_magasin)";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nom_produit", nom);
+                command.Parameters.AddWithValue("@stock_produit", stock);
+                command.Parameters.AddWithValue("@prix_produit", prix);
+                command.Parameters.AddWithValue("@dispo_produit", dispo);
+                command.Parameters.AddWithValue("@id_magasin", ID);
+                command.ExecuteNonQuery();
+                connection.Close();
+                Window activeWindow = Window.GetWindow(this);
+                activeWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez remplir tous les champs.");
+            }
         }
 
         private void ButtonAnnuler(object sender, RoutedEventArgs e)

@@ -33,12 +33,7 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonDel_commande(object sender, RoutedEventArgs e)
         {
-            int.TryParse(ID_commande.Text, out ID);
-            if (ID <= 0)
-            {
-                MessageBox.Show("Valeur entrée incorrect");
-            }
-            else
+            if (int.TryParse(ID_commande.Text, out int ID) && ID>0)
             {
                 connection.Open();
                 string query = "DELETE FROM contenant_produit where num_commande=@ID;";
@@ -52,8 +47,13 @@ namespace Projet_BDD_Fleurs
                 query = "DELETE FROM commande where num_commande=@ID;";
                 command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@ID", ID);
-                command.ExecuteNonQuery(); 
+                command.ExecuteNonQuery();
                 connection.Close();
+            }
+            else
+            {
+                MessageBox.Show("Valeur entrée incorrect.");
+                return;
             }
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();

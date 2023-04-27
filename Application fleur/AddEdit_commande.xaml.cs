@@ -39,40 +39,49 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_commande(object sender, RoutedEventArgs e)
         {
-            if (creer==false)
+            if (creer == false)
             {
-                date_commande = DateTime.Now;
-                message_commande = message.Text;
-                courriel = courriel_client.Text;
-                nom = nom_magasin.Text;
-                adresse = adresse_livraison.Text;
-                connection.Open();
-                string query = "SELECT id_client from client where courriel=@courriel_client;";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@courriel_client", courriel);
-                id_client = Convert.ToInt32(command.ExecuteScalar());
-                query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_magasin", nom);
-                id_magasin = Convert.ToInt32(command.ExecuteScalar());
-                d_livraison = DateTime.Now.AddDays(7);
-                query = "SELECT adresse_facturation from client where id_client=@id_client;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_client", id_client);
-                adresse = Convert.ToString(command.ExecuteScalar());
-                query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@date_commande", date_commande);
-                command.Parameters.AddWithValue("@adresse_livraison", adresse);
-                command.Parameters.AddWithValue("@message", message_commande);
-                command.Parameters.AddWithValue("@date_livraison", d_livraison);
-                command.Parameters.AddWithValue("@etat_commande", "VINV");
-                command.Parameters.AddWithValue("@id_client", id_client);
-                command.Parameters.AddWithValue("@id_magasin", id_magasin);
-                command.Parameters.AddWithValue("@prix_total", 0);
-                command.ExecuteNonQuery();
-                connection.Close();
-                creer = true;
+                if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
+                {
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Erreur");
+                    connection.Close();
+                    return;
+                }
+                else
+                {
+                    date_commande = DateTime.Now;
+                    message_commande = message.Text;
+                    courriel = courriel_client.Text;
+                    nom = nom_magasin.Text;
+                    adresse = adresse_livraison.Text;
+                    connection.Open();
+                    string query = "SELECT id_client from client where courriel=@courriel_client;";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@courriel_client", courriel);
+                    id_client = Convert.ToInt32(command.ExecuteScalar());
+                    query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nom_magasin", nom);
+                    id_magasin = Convert.ToInt32(command.ExecuteScalar());
+                    d_livraison = DateTime.Now.AddDays(7);
+                    query = "SELECT adresse_facturation from client where id_client=@id_client;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    adresse = Convert.ToString(command.ExecuteScalar());
+                    query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@date_commande", date_commande);
+                    command.Parameters.AddWithValue("@adresse_livraison", adresse);
+                    command.Parameters.AddWithValue("@message", message_commande);
+                    command.Parameters.AddWithValue("@date_livraison", d_livraison);
+                    command.Parameters.AddWithValue("@etat_commande", "VINV");
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    command.Parameters.AddWithValue("@id_magasin", id_magasin);
+                    command.Parameters.AddWithValue("@prix_total", 0);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    creer = true;
+                }
             }
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();
@@ -88,35 +97,50 @@ namespace Projet_BDD_Fleurs
         {
             if (creer == false)
             {
-                date_commande = DateTime.Now;
-                message_commande = message.Text;
-                courriel = courriel_client.Text;
-                nom = nom_magasin.Text;
-                adresse = adresse_livraison.Text;
-                connection.Open();
-                string query = "SELECT id_client from client where courriel=@courriel_client;";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@courriel_client", courriel);
-                id_client = Convert.ToInt32(command.ExecuteScalar());
-                query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_magasin", nom);
-                id_magasin = Convert.ToInt32(command.ExecuteScalar());
-                d_livraison = DateTime.Now.AddDays(2);
-                query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@date_commande", date_commande);
-                command.Parameters.AddWithValue("@adresse_livraison", adresse);
-                command.Parameters.AddWithValue("@message", message_commande);
-                command.Parameters.AddWithValue("@date_livraison", d_livraison);
-                command.Parameters.AddWithValue("@etat_commande", "VINV");
-                command.Parameters.AddWithValue("@id_client", id_client);
-                command.Parameters.AddWithValue("@id_magasin", id_magasin);
-                command.Parameters.AddWithValue("@prix_total", 0);
-                command.ExecuteNonQuery();
-                connection.Close();
-                creer = true;
+                if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
+                {
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.");
+                    connection.Close();
+                    return;
+                }
+                else
+                {
+                    date_commande = DateTime.Now;
+                    message_commande = message.Text;
+                    courriel = courriel_client.Text;
+                    nom = nom_magasin.Text;
+                    adresse = adresse_livraison.Text;
+                    connection.Open();
+                    string query = "SELECT id_client from client where courriel=@courriel_client;";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@courriel_client", courriel);
+                    id_client = Convert.ToInt32(command.ExecuteScalar());
+                    query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nom_magasin", nom);
+                    id_magasin = Convert.ToInt32(command.ExecuteScalar());
+                    d_livraison = DateTime.Now.AddDays(7);
+                    query = "SELECT adresse_facturation from client where id_client=@id_client;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    adresse = Convert.ToString(command.ExecuteScalar());
+                    query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@date_commande", date_commande);
+                    command.Parameters.AddWithValue("@adresse_livraison", adresse);
+                    command.Parameters.AddWithValue("@message", message_commande);
+                    command.Parameters.AddWithValue("@date_livraison", d_livraison);
+                    command.Parameters.AddWithValue("@etat_commande", "VINV");
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    command.Parameters.AddWithValue("@id_magasin", id_magasin);
+                    command.Parameters.AddWithValue("@prix_total", 0);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    creer = true;
+                }
             }
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
             var w = new AddEdit_contenubouquet();
             w.Show();
         }
@@ -125,39 +149,50 @@ namespace Projet_BDD_Fleurs
         {
             if (creer == false)
             {
-                date_commande = DateTime.Now;
-                message_commande = message.Text;
-                courriel = courriel_client.Text;
-                nom = nom_magasin.Text;
-                adresse = adresse_livraison.Text;
-                connection.Open();
-                string query = "SELECT id_client from client where courriel=@courriel_client;";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@courriel_client", courriel);
-                id_client = Convert.ToInt32(command.ExecuteScalar());
-                query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nom_magasin", nom);
-                id_magasin = Convert.ToInt32(command.ExecuteScalar());
-                d_livraison = DateTime.Now.AddDays(7);
-                query = "SELECT adresse_facturation from client where id_client=@id_client;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_client", id_client);
-                query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@date_commande", date_commande);
-                command.Parameters.AddWithValue("@adresse_livraison", adresse);
-                command.Parameters.AddWithValue("@message", message_commande);
-                command.Parameters.AddWithValue("@date_livraison", d_livraison);
-                command.Parameters.AddWithValue("@etat_commande", "VINV");
-                command.Parameters.AddWithValue("@id_client", id_client);
-                command.Parameters.AddWithValue("@id_magasin", id_magasin);
-                command.Parameters.AddWithValue("@prix_total", 0);
-
-                command.ExecuteNonQuery();
-                connection.Close();
-                creer = true;
+                if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
+                {
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.");
+                    connection.Close();
+                    return;
+                }
+                else
+                {
+                    date_commande = DateTime.Now;
+                    message_commande = message.Text;
+                    courriel = courriel_client.Text;
+                    nom = nom_magasin.Text;
+                    adresse = adresse_livraison.Text;
+                    connection.Open();
+                    string query = "SELECT id_client from client where courriel=@courriel_client;";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@courriel_client", courriel);
+                    id_client = Convert.ToInt32(command.ExecuteScalar());
+                    query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nom_magasin", nom);
+                    id_magasin = Convert.ToInt32(command.ExecuteScalar());
+                    d_livraison = DateTime.Now.AddDays(7);
+                    query = "SELECT adresse_facturation from client where id_client=@id_client;";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    adresse = Convert.ToString(command.ExecuteScalar());
+                    query = "INSERT INTO commande (date_commande,adresse_livraison,message,date_livraison,etat_commande,prix_total,id_client,id_magasin) VALUES (@date_commande,@adresse_livraison,@message,@date_livraison,@etat_commande,@prix_total,@id_client,@id_magasin)";
+                    command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@date_commande", date_commande);
+                    command.Parameters.AddWithValue("@adresse_livraison", adresse);
+                    command.Parameters.AddWithValue("@message", message_commande);
+                    command.Parameters.AddWithValue("@date_livraison", d_livraison);
+                    command.Parameters.AddWithValue("@etat_commande", "VINV");
+                    command.Parameters.AddWithValue("@id_client", id_client);
+                    command.Parameters.AddWithValue("@id_magasin", id_magasin);
+                    command.Parameters.AddWithValue("@prix_total", 0);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    creer = true;
+                }
             }
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
             var w = new AddEdit_contenuproduit();
             w.Show();
         }

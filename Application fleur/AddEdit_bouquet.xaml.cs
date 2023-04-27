@@ -23,10 +23,7 @@ namespace Projet_BDD_Fleurs
         public static MySqlConnection connection;
         private string nom;
         private string composition;
-        private int stock;
-        private float prix;
         private string categorie;
-        private int ID;
 
         public AddEdit_bouquet()
         {
@@ -43,27 +40,31 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_bouquet(object sender, RoutedEventArgs e)
         {
-            nom = nom_bouquet.Text;
-            composition = composition_fleurs.Text;
-            stock = Convert.ToInt32(stock_bouquet.Text);
-            prix = float.Parse(prix_bouquet.Text);
-            categorie = categorie_bouquet.Text;
-            ID = Convert.ToInt32(id_magasin.Text);
-            string query = "";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            query = "INSERT INTO bouquet (nom_bouquet,composition_fleurs,stock_bouquet,prix_bouquet,categorie_bouquet,id_magasin) VALUES (@nom_bouquet,@composition_fleurs,@stock_bouquet,@prix_bouquet,@categorie_bouquet,@id_magasin)";
-            connection.Open();
-            command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nom_bouquet", nom);
-            command.Parameters.AddWithValue("@composition_fleurs", composition);
-            command.Parameters.AddWithValue("@stock_bouquet", stock);
-            command.Parameters.AddWithValue("@prix_bouquet", prix);
-            command.Parameters.AddWithValue("@categorie_bouquet", categorie);
-            command.Parameters.AddWithValue("@id_magasin", ID);
-            command.ExecuteNonQuery();
-            connection.Close();
-            Window activeWindow = Window.GetWindow(this);
-            activeWindow.Close();
+            if (!string.IsNullOrEmpty(nom_bouquet.Text) && !string.IsNullOrEmpty(composition_fleurs.Text) && int.TryParse(stock_bouquet.Text, out int stock) && float.TryParse(prix_bouquet.Text, out float prix) && !string.IsNullOrEmpty(categorie_bouquet.Text) && int.TryParse(id_magasin.Text, out int ID) && ID>0)
+            {
+                nom = nom_bouquet.Text;
+                composition = composition_fleurs.Text;
+                categorie = categorie_bouquet.Text;
+                string query = "";
+                MySqlCommand command = new MySqlCommand(query, connection);
+                query = "INSERT INTO bouquet (nom_bouquet,composition_fleurs,stock_bouquet,prix_bouquet,categorie_bouquet,id_magasin) VALUES (@nom_bouquet,@composition_fleurs,@stock_bouquet,@prix_bouquet,@categorie_bouquet,@id_magasin)";
+                connection.Open();
+                command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@nom_bouquet", nom);
+                command.Parameters.AddWithValue("@composition_fleurs", composition);
+                command.Parameters.AddWithValue("@stock_bouquet", stock);
+                command.Parameters.AddWithValue("@prix_bouquet", prix);
+                command.Parameters.AddWithValue("@categorie_bouquet", categorie);
+                command.Parameters.AddWithValue("@id_magasin", ID);
+                command.ExecuteNonQuery();
+                connection.Close();
+                Window activeWindow = Window.GetWindow(this);
+                activeWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Valeurs entrées incorrects ou champs incomplets.");
+            }      
         }
     }
 }

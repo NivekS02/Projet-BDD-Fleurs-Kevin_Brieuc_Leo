@@ -48,9 +48,9 @@
                             <DataGridTextColumn Header="Prénom" Binding="{Binding prenom}" Width="Auto" />
                             <DataGridTextColumn Header="Numéro de téléphone" Binding="{Binding num_tel}" Width="Auto" />
                             <DataGridTextColumn Header="Mot de passe" Binding="{Binding mdp}" Width="Auto" />
-                            <DataGridTextColumn Header="Carte de crédit" Binding="{Binding adresse_facturation}" Width="Auto" />
-                            <DataGridTextColumn Header="Statut de fidélité" Binding="{Binding carte_credit}" Width="Auto" />
-                            <DataGridTextColumn Header="Adresse de facturation" Binding="{Binding statut_fidelite}" Width="*" />
+                            <DataGridTextColumn Header="Adresse de facturation" Binding="{Binding adresse_facturation}" Width="Auto" />
+                            <DataGridTextColumn Header="Carte de crédit" Binding="{Binding carte_credit}" Width="Auto" />
+                            <DataGridTextColumn Header="Statut de fidélité" Binding="{Binding statut_fidelite}" Width="*" />
 
                         </DataGrid.Columns>
                         
@@ -206,6 +206,33 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="Onglet_Statistique" Header="Statistiques" Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Statistiques" FontSize="24" FontWeight="Bold" Foreground="Black" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="Prix moyen du bouquet acheté :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="PrixMoyenBouquet" Margin="5"/>
+                        <TextBlock Text="Meilleur client du mois :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="MeilleurClientMois" Margin="5"/>
+                        <TextBlock Text="Meilleur client de l'année :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="MeilleurClientAnnee" Margin="5"/>
+                        <TextBlock Text="Bouquet standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="BouquetPlusVendu" Margin="5"/>
+                        <TextBlock Text="Magasin qui a généré le plus d'argent :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="MagasinPlusRentable" Margin="5"/>
+                        <TextBlock Text="Fleur exotique la moins vendue :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="FleurMoinsVendue" Margin="5"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>

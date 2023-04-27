@@ -37,6 +37,33 @@ namespace Projet_BDD_Fleurs
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
+            connection.Open();
+            MySqlCommand command1 = new MySqlCommand("SELECT AVG(prix_bouquet) FROM bouquet", connection);
+            double prixMoyen = (double)command1.ExecuteScalar();
+            PrixMoyenBouquet.Text = prixMoyen.ToString("C2");
+
+            /* Meilleur client du mois
+            MySqlCommand command2 = new MySqlCommand("SELECT TOP 1 Client, SUM(Prix) as TotalPrix FROM Commandes WHERE MONTH(Date) = MONTH(GETDATE()) GROUP BY Client ORDER BY TotalPrix DESC", connection);
+            MySqlDataReader reader2 = command2.ExecuteReader();
+            if (reader2.Read())
+            {
+                string nomClient = reader2.GetString(0);
+                double totalPrix = reader2.GetDouble(1);
+                MeilleurClientMois.Text = nomClient + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader2.Close();
+
+            // Meilleur client de l'année
+            MySqlCommand command3 = new MySqlCommand("SELECT TOP 1 Client, SUM(Prix) as TotalPrix FROM Commandes WHERE YEAR(Date) = YEAR(GETDATE()) GROUP BY Client ORDER BY TotalPrix DESC", connection);
+            MySqlDataReader reader3 = command3.ExecuteReader();
+            if (reader3.Read())
+            {
+                string nomClient = reader3.GetString(0);
+                double totalPrix = reader3.GetDouble(1);
+                MeilleurClientAnnee.Text = nomClient + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader3.Close();*/
+            connection.Close();
 
         }
         private void ConnexionButton_Click(object sender, RoutedEventArgs e)
@@ -73,6 +100,7 @@ namespace Projet_BDD_Fleurs
                 Refresh_produit.Visibility = Visibility.Visible;
                 Refresh_commande.Visibility = Visibility.Visible;
                 Refresh_magasin.Visibility = Visibility.Visible;
+                Onglet_Statistique.Visibility = Visibility.Visible;
                 string querybis = "SELECT * FROM client";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
                 DataTable dataTable = new DataTable("Client");
@@ -129,6 +157,7 @@ namespace Projet_BDD_Fleurs
                 Refresh_produit.Visibility = Visibility.Visible;
                 Refresh_commande.Visibility = Visibility.Visible;
                 Refresh_magasin.Visibility = Visibility.Visible;
+                Onglet_Statistique.Visibility = Visibility.Visible;
                 string querybis = "SELECT * FROM client";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(querybis, connection);
                 DataTable dataTable = new DataTable("Client");
@@ -185,6 +214,7 @@ namespace Projet_BDD_Fleurs
                 Refresh_produit.Visibility = Visibility.Visible;
                 Refresh_commande.Visibility = Visibility.Visible;
                 Refresh_magasin.Visibility = Visibility.Visible;
+                Onglet_Statistique.Visibility = Visibility.Collapsed;
                 MySqlCommand commandbis = new MySqlCommand();
                 commandbis.Connection = connection;
                 commandbis.CommandText = "SELECT * FROM client where id_client=@id_client;";
@@ -245,6 +275,7 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
+                Onglet_Statistique.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Mot de passe ou email entré incorrect");
             }
             connection.Close();
