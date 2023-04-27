@@ -228,7 +228,7 @@
                         <TextBlock x:Name="MeilleurClientAnnee" Margin="5"/>
                         <TextBlock Text="Bouquet standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="BouquetPlusVendu" Margin="5"/>
-                        <TextBlock Text="Magasin qui a généré le plus d'argent :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock Text="Magasin qui a généré le plus de chiffre d'affaires :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MagasinPlusRentable" Margin="5"/>
                         <TextBlock Text="Fleur exotique la moins vendue :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="FleurMoinsVendue" Margin="5"/>

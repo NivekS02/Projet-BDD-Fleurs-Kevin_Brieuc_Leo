@@ -31,6 +31,9 @@ namespace Projet_BDD_Fleurs
         private int nb_tt_commande;
         private float prix_produit;
         private float prix_bouquet;
+        private int nb_bouquet;
+        private string statut_fidelite;
+        private int nb_client;
         public MainWindow()
         {
 
@@ -326,10 +329,11 @@ namespace Projet_BDD_Fleurs
 
         private void RefreshButton_client(object sender, RoutedEventArgs e)
         {
-            if(email!="bozo" && email != "root")
+            MySqlCommand command = new MySqlCommand();
+            command.Connection = connection;
+            connection.Open();
+            if (email!="bozo" && email != "root")
             {
-                MySqlCommand command = new MySqlCommand();
-                command.Connection = connection;
                 command.CommandText = "SELECT * FROM client where id_client=@id_client;";
                 command.Parameters.AddWithValue("@id_client", id_client);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
@@ -345,6 +349,35 @@ namespace Projet_BDD_Fleurs
                 adapter.Fill(dataTable);
                 ClientDataGrid.ItemsSource = dataTable.DefaultView;
             }
+            command.CommandText = "SELECT count(*) from client;";
+            nb_client = Convert.ToInt32(command.ExecuteScalar());
+            for (int i = 1; i <= nb_client; i++)
+            {
+                command.Parameters.Clear();
+                command.CommandText = "SELECT SUM(cb.quantite_bouquet) AS nombre_bouquets_commandes FROM contenant_bouquet cb INNER JOIN commande c ON cb.num_commande = c.num_commande INNER JOIN client cl ON c.id_client = cl.id_client WHERE cl.id_client =@id_client AND c.date_commande >= DATE_SUB(NOW(), INTERVAL 1 MONTH);";
+                command.Parameters.AddWithValue("@id_client", i);
+                object result = command.ExecuteScalar();
+                nb_bouquet = Convert.IsDBNull(result) ? 0 : Convert.ToInt32(result);
+
+                if (nb_bouquet >= 1 && nb_bouquet < 5)
+                {
+                    statut_fidelite = "BRONZE";
+                }
+                else if (nb_bouquet >= 5)
+                {
+                    statut_fidelite = "OR";
+                }
+                else
+                {
+                    statut_fidelite = null;
+                }
+                command.Parameters.Clear();
+                command.CommandText = "UPDATE client set statut_fidelite=@statut_fidelite where id_client=@id_client;";
+                command.Parameters.AddWithValue("@statut_fidelite", statut_fidelite);
+                command.Parameters.AddWithValue("@id_client", i);
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
         }
         private void RefreshButton_magasin(object sender, RoutedEventArgs e)
         {
@@ -445,6 +478,23 @@ namespace Projet_BDD_Fleurs
                 if (result != DBNull.Value && result != null)
                 {
                     prix_bouquet = Convert.ToSingle(result);
+                }
+                command.CommandText = "SELECT id_client from commande where num_commande=@num_commande;";
+                id_client = Convert.ToInt32(command.ExecuteScalar());
+                command.CommandText = "SELECT statut_fidelite from client where id_client=@id_client;";
+                command.Parameters.AddWithValue("@id_client", id_client);
+                result = command.ExecuteScalar();
+                if (result != DBNull.Value && result != null)
+                {
+                    statut_fidelite = (string)result;
+                    if (statut_fidelite == "OR")
+                    {
+                        prix_bouquet = Convert.ToSingle(prix_bouquet * 0.85);
+                    }
+                    if (statut_fidelite == "BRONZE")
+                    {
+                        prix_bouquet = Convert.ToSingle(prix_bouquet * 0.95);
+                    }
                 }
                 command.CommandText = "SELECT  SUM(cp.quantite_produit * p.prix_produit) FROM commande c LEFT JOIN contenant_produit cp ON c.num_commande = cp.num_commande LEFT JOIN produit p ON cp.nom_produit = p.nom_produit WHERE c.num_commande = @num_commande;";
                 prix_produit = 0;

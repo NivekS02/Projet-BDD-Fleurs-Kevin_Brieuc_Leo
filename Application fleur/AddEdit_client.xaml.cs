@@ -29,6 +29,7 @@ namespace Projet_BDD_Fleurs
         private string mdp_client;
         private string num_tel_client;
         private string adresse_client;
+        private string statut_fidelite;
 
         public AddEdit_client()
         {
@@ -48,20 +49,17 @@ namespace Projet_BDD_Fleurs
                 mdp_client = mot_de_passe.Password;
                 num_tel_client = num_telephone.Text;
                 adresse_client = adresse.Text;
-
                 connection.Open();
-                string query = "";
-                MySqlCommand command = new MySqlCommand(query, connection);
-                query = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
-                command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO client (courriel, nom, prenom, num_tel, mdp, adresse_facturation, carte_credit, statut_fidelite) VALUES (@courriel_client,@nom_client,@prenom_client,@num_tel_client,@mdp_client,@adresse_client,@carte_de_credit_client,@statut_fidelite)";
+                command.Parameters.AddWithValue("@statut_fidelite", statut_fidelite);
                 command.Parameters.AddWithValue("@nom_client", nom_client);
                 command.Parameters.AddWithValue("@prenom_client", prenom_client);
-                command.Parameters.AddWithValue("@courriel_client", courriel_client);
                 command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
                 command.Parameters.AddWithValue("@mdp_client", mdp_client);
                 command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
                 command.Parameters.AddWithValue("@adresse_client", adresse_client);
-                command.Parameters.AddWithValue("@statut_fidelite", DBNull.Value);
                 command.ExecuteNonQuery();
                 connection.Close();
                 Window activeWindow = Window.GetWindow(this);
