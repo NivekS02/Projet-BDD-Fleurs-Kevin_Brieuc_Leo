@@ -5,30 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projet_BDD_Fleurs"
         mc:Ignorable="d"
-        Title="AddEdit_commande" Height="285" Width="233">
+        Title="AddEdit_commande" Height="333" Width="233">
     <Grid Background="DimGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="61*"/>
-            <ColumnDefinition Width="14*"/>
+            <ColumnDefinition Width="125*"/>
+            <ColumnDefinition Width="58*"/>
+            <ColumnDefinition Width="42*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Margin="5,10,0,186" Text="Message :" Foreground="White" Grid.ColumnSpan="2" />
-        <TextBox Margin="5,35,5,323" x:Name="message" Grid.ColumnSpan="2" />
+        <TextBlock Margin="5,10,0,186" Text="Message :" Foreground="White" Grid.ColumnSpan="3" />
+        <TextBox Margin="5,35,5,323" x:Name="message" Grid.ColumnSpan="3" />
 
-        <TextBlock Margin="5,58,0,186" Foreground="White" Grid.ColumnSpan="2"><Run Text="Nom"/><Run Text=" magasin :"/></TextBlock>
-        <TextBox Margin="5,81,5,277" x:Name="nom_magasin" Grid.ColumnSpan="2"  />
+        <TextBlock Margin="5,58,0,186" Foreground="White" Grid.ColumnSpan="3"><Run Text="Nom"/><Run Text=" magasin :"/></TextBlock>
+        <TextBox Margin="5,81,5,277" x:Name="nom_magasin" Grid.ColumnSpan="3"  />
 
-        <TextBlock Margin="5,104,0,184" Foreground="White" Grid.ColumnSpan="2"  ><Run Text="Votre c"/><Run Text="ourriel "/><Run Text=":"/></TextBlock>
-        <TextBox Margin="5,127,5,231" x:Name="courriel_client" Grid.ColumnSpan="2"  />
+        <TextBlock Margin="5,104,0,184" Foreground="White" Grid.ColumnSpan="3"  ><Run Text="Votre c"/><Run Text="ourriel "/><Run Text=":"/></TextBlock>
+        <TextBox Margin="5,127,5,231" x:Name="courriel_client" Grid.ColumnSpan="3"  />
 
-        <Button Content="Valider" Click="ButtonValider_commande" HorizontalAlignment="Left" Margin="130,224,0,0" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="2"/>
-        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,224,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.478,-1.8"/>
-        <Button Content="Ajouter bouquet" Click="ButtonAdd_bouquet" HorizontalAlignment="Left" Margin="5,167,0,0" VerticalAlignment="Top" Width="215" RenderTransformOrigin="0.478,-1.8" Grid.ColumnSpan="2"/>
-        <Button Content="Ajouter produit" Click="ButtonAdd_produit" HorizontalAlignment="Left" Margin="5,192,0,0" VerticalAlignment="Top" Width="215" RenderTransformOrigin="0.478,-1.8" Grid.ColumnSpan="2"/>
+        <Button Content="Valider" Click="ButtonValider_commande" HorizontalAlignment="Left" Margin="0,272,0,0" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" HorizontalAlignment="Left" Margin="5,272,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.478,-1.8"/>
+        <Button Content="Ajouter bouquet" Click="ButtonAdd_bouquet" HorizontalAlignment="Left" Margin="5,210,0,0" VerticalAlignment="Top" Width="215" RenderTransformOrigin="0.478,-1.8" Grid.ColumnSpan="3"/>
+        <Button Content="Ajouter produit" Click="ButtonAdd_produit" HorizontalAlignment="Left" Margin="5,238,0,0" VerticalAlignment="Top" Width="215" RenderTransformOrigin="0.478,-1.8" Grid.ColumnSpan="3"/>
+        <TextBlock Margin="5,150,0,184" Foreground="White" Grid.ColumnSpan="3"  ><Run Text="Adresse de livraison "/><Run Text=":"/></TextBlock>
+        <TextBox Margin="5,172,5,186" x:Name="adresse_livraison" Grid.ColumnSpan="3"  />
 
 
     </Grid>

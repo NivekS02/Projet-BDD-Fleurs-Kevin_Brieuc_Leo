@@ -28,6 +28,7 @@ namespace Projet_BDD_Fleurs
         private string password;
         public static MySqlConnection connection;
         private int id_client;
+        private int nb_tt_commande;
 
         public MainWindow()
         {
@@ -295,11 +296,11 @@ namespace Projet_BDD_Fleurs
         {
             if(email!="bozo" && email != "root")
             {
-                MySqlCommand commandbis = new MySqlCommand();
-                commandbis.Connection = connection;
-                commandbis.CommandText = "SELECT * FROM client where id_client=@id_client;";
-                commandbis.Parameters.AddWithValue("@id_client", id_client);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(commandbis);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM client where id_client=@id_client;";
+                command.Parameters.AddWithValue("@id_client", id_client);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable("Client");
                 adapter.Fill(dataTable);
                 ClientDataGrid.ItemsSource = dataTable.DefaultView;
@@ -341,29 +342,35 @@ namespace Projet_BDD_Fleurs
         {
             if(email!="bozo" && email != "root")
             {
-                MySqlCommand commandbis = new MySqlCommand();
+                MySqlCommand command = new MySqlCommand();
+                connection.Open();
+                command.Connection = connection;       
                 DataTable dataTable = new DataTable("Commande");
-                commandbis.Connection = connection;
-                commandbis.CommandText = "SELECT * FROM commande where id_client=@id_client;";
-                commandbis.Parameters.AddWithValue("@id_client", id_client);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(commandbis);
+                command.CommandText = "SELECT * FROM commande where id_client=@id_client;";
+                command.Parameters.AddWithValue("@id_client", id_client);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 adapter.Fill(dataTable);
                 CommandeDataGrid.ItemsSource = dataTable.DefaultView;
-                commandbis.Connection = connection;
-                commandbis.CommandText = "SELECT * FROM contenant_produit NATURAL JOIN commande where commande.id_client = @id_client;";
-                adapter = new MySqlDataAdapter(commandbis);
+                command.CommandText = "SELECT * FROM contenant_produit NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(command);
                 dataTable = new DataTable("Contenant_produit");
                 adapter.Fill(dataTable);
                 Contenant_produitDataGrid.ItemsSource = dataTable.DefaultView;
-                commandbis.Connection = connection;
-                commandbis.CommandText = "SELECT * FROM contenant_bouquet NATURAL JOIN commande where commande.id_client = @id_client;";
-                adapter = new MySqlDataAdapter(commandbis);
+                command.CommandText = "SELECT * FROM contenant_bouquet NATURAL JOIN commande where commande.id_client = @id_client;";
+                adapter = new MySqlDataAdapter(command);
                 dataTable = new DataTable("Contenant_bouquet");
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
+                command.CommandText = ("SELECT count(*) from commande;");
+                nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
+                command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
+                connection.Close();
             }
             else
             {
+                MySqlCommand command = new MySqlCommand();
+                connection.Open();
+                command.Connection = connection;
                 string query = "SELECT * FROM commande";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable("Commande");
@@ -379,6 +386,27 @@ namespace Projet_BDD_Fleurs
                 dataTable = new DataTable("Contenant_bouquet");
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
+                command.CommandText = ("SELECT count(*) from commande;");
+                nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
+                command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
+                for (int i = 1; i <= nb_tt_commande; i++)
+                {
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@num_commande", i);
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        DateTime date_livraison = (DateTime)result;
+                        if (date_livraison < DateTime.Now)
+                        {
+                            command.Parameters.Clear();
+                            command.Parameters.AddWithValue("@num_commande", i);
+                            command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE num_commande = @num_commande";//à revoir
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                connection.Close();
             }
         }
     }

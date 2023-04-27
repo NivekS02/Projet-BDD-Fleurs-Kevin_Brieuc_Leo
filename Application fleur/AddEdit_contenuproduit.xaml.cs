@@ -24,6 +24,8 @@ namespace Projet_BDD_Fleurs
         private int numero_commande;
         private string nom;
         private int quantite;
+        private int id_magasin;
+        private int stock;
         public AddEdit_contenuproduit()
         {
             InitializeComponent();
@@ -43,14 +45,29 @@ namespace Projet_BDD_Fleurs
             connection.Open();
             MySqlCommand command = new MySqlCommand(query, connection);
             nom = nom_produit.Text;
-            numero_commande = Convert.ToInt32(command.ExecuteScalar())+1;
+            numero_commande = Convert.ToInt32(command.ExecuteScalar());
             quantite = Convert.ToInt32(quantite_produit.Text);
-            query = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
-            command = new MySqlCommand(query, connection);
+            command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
+            id_magasin = Convert.ToInt32(command.ExecuteScalar());
+            command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
             command.Parameters.AddWithValue("@nom_produit", nom);
-            command.Parameters.AddWithValue("@quantite_produit", quantite);
-            command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@id_magasin", id_magasin);
+            stock = Convert.ToInt32(command.ExecuteScalar());
+            if (stock > 0)
+            {
+                command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
+                command.Parameters.AddWithValue("@quantite_produit", quantite);
+                command.ExecuteNonQuery();
+                command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("Nous sommes désolés mais nous n'avons plus de stock pour ce produit dans ce magasin\nVeuillez nous excuser pour la gêne occasionnée");
+                connection.Close();
+                return;
+            }
             connection.Close();
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();
@@ -64,12 +81,27 @@ namespace Projet_BDD_Fleurs
             nom = nom_produit.Text;
             numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
             quantite = Convert.ToInt32(quantite_produit.Text);
-            query = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
-            command = new MySqlCommand(query, connection);
+            command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
+            id_magasin = Convert.ToInt32(command.ExecuteScalar());
+            command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
             command.Parameters.AddWithValue("@nom_produit", nom);
-            command.Parameters.AddWithValue("@quantite_produit", quantite);
-            command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@id_magasin", id_magasin);
+            stock = Convert.ToInt32(command.ExecuteScalar());
+            if (stock > 0)
+            {
+                command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
+                command.Parameters.AddWithValue("@quantite_produit", quantite);
+                command.ExecuteNonQuery();
+                command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("Nous sommes désolés mais nous n'avons plus de stock pour ce produit dans ce magasin\nVeuillez nous excuser pour la gêne occasionnée");
+                connection.Close();
+                return;
+            }
             connection.Close();
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();
@@ -85,12 +117,27 @@ namespace Projet_BDD_Fleurs
             nom = nom_produit.Text;
             numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
             quantite = Convert.ToInt32(quantite_produit.Text);
-            query = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
-            command = new MySqlCommand(query, connection);
+            command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
+            id_magasin = Convert.ToInt32(command.ExecuteScalar());
+            command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
             command.Parameters.AddWithValue("@nom_produit", nom);
-            command.Parameters.AddWithValue("@quantite_produit", quantite);
-            command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@id_magasin", id_magasin);
+            stock = Convert.ToInt32(command.ExecuteScalar());
+            if (stock > 0)
+            {
+                command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,quantite_produit) VALUES (@num_commande,@nom_produit,@quantite_produit)";
+                command.Parameters.AddWithValue("@quantite_produit", quantite);
+                command.ExecuteNonQuery();
+                command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("Nous sommes désolés mais nous n'avons plus de stock pour ce produit dans ce magasin\nVeuillez nous excuser pour la gêne occasionnée");
+                connection.Close();
+                return;
+            }
             connection.Close();
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();

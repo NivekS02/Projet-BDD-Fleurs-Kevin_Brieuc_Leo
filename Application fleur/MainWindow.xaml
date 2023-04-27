@@ -154,6 +154,7 @@
                             <DataGridTextColumn Header="Message" Binding="{Binding message}" Width="Auto" />
                             <DataGridTextColumn Header="Date de livraison" Binding="{Binding date_livraison}" Width="Auto" />
                             <DataGridTextColumn Header="Etat de commande" Binding="{Binding etat_commande}" Width="Auto" />
+                            <DataGridTextColumn Header="Prix total" Binding="{Binding prix_total}" Width="Auto" />
                             <DataGridTextColumn Header="ID client" Binding="{Binding id_client}" Width="Auto" />
                             <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="*" />
                         </DataGrid.Columns>
