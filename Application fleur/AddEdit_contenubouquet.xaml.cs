@@ -46,7 +46,7 @@ namespace Projet_BDD_Fleurs
             MySqlCommand command = new MySqlCommand(query, connection);
             nom = nom_bouquet.Text;
             quantite = Convert.ToInt32(quantite_bouquet.Text);
-            numero_commande = Convert.ToInt32(command.ExecuteScalar())+1;
+            numero_commande = Convert.ToInt32(command.ExecuteScalar());
             command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
             id_magasin = Convert.ToInt32(command.ExecuteScalar());
@@ -80,7 +80,7 @@ namespace Projet_BDD_Fleurs
             MySqlCommand command = new MySqlCommand(query, connection);
             nom = nom_bouquet.Text;
             quantite = Convert.ToInt32(quantite_bouquet.Text);
-            numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
+            numero_commande = Convert.ToInt32(command.ExecuteScalar());
             command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
             id_magasin = Convert.ToInt32(command.ExecuteScalar());
@@ -116,7 +116,7 @@ namespace Projet_BDD_Fleurs
             MySqlCommand command = new MySqlCommand(query, connection);
             nom = nom_bouquet.Text;
             quantite = Convert.ToInt32(quantite_bouquet.Text);
-            numero_commande = Convert.ToInt32(command.ExecuteScalar()) + 1;
+            numero_commande = Convert.ToInt32(command.ExecuteScalar());
             command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
             command.Parameters.AddWithValue("@num_commande", numero_commande);
             id_magasin = Convert.ToInt32(command.ExecuteScalar());

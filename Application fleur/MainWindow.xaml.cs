@@ -29,7 +29,8 @@ namespace Projet_BDD_Fleurs
         public static MySqlConnection connection;
         private int id_client;
         private int nb_tt_commande;
-
+        private float prix_produit;
+        private float prix_bouquet;
         public MainWindow()
         {
 
@@ -340,11 +341,11 @@ namespace Projet_BDD_Fleurs
         }
         private void RefreshButton_commande(object sender, RoutedEventArgs e)
         {
-            if(email!="bozo" && email != "root")
-            {
-                MySqlCommand command = new MySqlCommand();
-                connection.Open();
-                command.Connection = connection;       
+            MySqlCommand command = new MySqlCommand();
+            connection.Open();
+            command.Connection = connection;
+            if (email!="bozo" && email != "root")
+            {      
                 DataTable dataTable = new DataTable("Commande");
                 command.CommandText = "SELECT * FROM commande where id_client=@id_client;";
                 command.Parameters.AddWithValue("@id_client", id_client);
@@ -364,13 +365,9 @@ namespace Projet_BDD_Fleurs
                 command.CommandText = ("SELECT count(*) from commande;");
                 nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
-                connection.Close();
             }
             else
             {
-                MySqlCommand command = new MySqlCommand();
-                connection.Open();
-                command.Connection = connection;
                 string query = "SELECT * FROM commande";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable("Commande");
@@ -386,28 +383,50 @@ namespace Projet_BDD_Fleurs
                 dataTable = new DataTable("Contenant_bouquet");
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
-                command.CommandText = ("SELECT count(*) from commande;");
-                nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
-                command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
-                for (int i = 1; i <= nb_tt_commande; i++)
+            }       
+            command.CommandText ="SELECT count(*) from commande;";
+            nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
+            command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
+            for (int i = 1; i <= nb_tt_commande; i++)
+            {
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@num_commande", i);
+                object result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
                 {
-                    command.Parameters.Clear();
-                    command.Parameters.AddWithValue("@num_commande", i);
-                    object result = command.ExecuteScalar();
-                    if (result != null && result != DBNull.Value)
+                    DateTime date_livraison = (DateTime)result;
+                    if (date_livraison < DateTime.Now)
                     {
-                        DateTime date_livraison = (DateTime)result;
-                        if (date_livraison < DateTime.Now)
-                        {
-                            command.Parameters.Clear();
-                            command.Parameters.AddWithValue("@num_commande", i);
-                            command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE num_commande = @num_commande";//à revoir
-                            command.ExecuteNonQuery();
-                        }
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@num_commande", i);
+                        command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE num_commande = @num_commande";//à revoir
+                        command.ExecuteNonQuery();
                     }
                 }
-                connection.Close();
             }
+            for (int i = 1; i <= nb_tt_commande; i++)
+            {
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@num_commande", i);
+                command.CommandText = "SELECT  SUM((cb.quantite_bouquet * b.prix_bouquet)) FROM commande c LEFT JOIN contenant_bouquet cb ON c.num_commande = cb.num_commande LEFT JOIN bouquet b ON cb.nom_bouquet = b.nom_bouquet WHERE c.num_commande = @num_commande; ";
+                prix_bouquet = 0;
+                object result = command.ExecuteScalar();
+                if (result != DBNull.Value && result != null)
+                {
+                    prix_bouquet = Convert.ToSingle(result);
+                }
+                command.CommandText = "SELECT  SUM(cp.quantite_produit * p.prix_produit) FROM commande c LEFT JOIN contenant_produit cp ON c.num_commande = cp.num_commande LEFT JOIN produit p ON cp.nom_produit = p.nom_produit WHERE c.num_commande = @num_commande;";
+                prix_produit = 0;
+                result = command.ExecuteScalar();
+                if (result != DBNull.Value && result != null)
+                {
+                    prix_produit = Convert.ToSingle(result);
+                }
+                command.CommandText = "UPDATE commande set prix_total=@prix_total where num_commande=@num_commande;";
+                command.Parameters.AddWithValue("@prix_total", prix_produit+prix_bouquet);
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
         }
     }
 }
