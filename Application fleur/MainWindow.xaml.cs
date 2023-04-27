@@ -459,13 +459,10 @@ namespace Projet_BDD_Fleurs
                 if (result != null && result != DBNull.Value)
                 {
                     DateTime date_livraison = (DateTime)result;
-                    if (date_livraison < DateTime.Now)
-                    {
-                        command.Parameters.Clear();
-                        command.Parameters.AddWithValue("@num_commande", i);
-                        command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE num_commande = @num_commande";//à revoir
-                        command.ExecuteNonQuery();
-                    }
+                    command.CommandText = "UPDATE commande SET etat_commande = 'CC' WHERE DATE_SUB(date_livraison, INTERVAL 6 DAY)<CURDATE()";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE date_livraison<CURDATE();";
+                    command.ExecuteNonQuery();
                 }
             }
             for (int i = 1; i <= nb_tt_commande; i++)

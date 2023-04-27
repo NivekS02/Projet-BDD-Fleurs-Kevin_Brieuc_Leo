@@ -26,6 +26,7 @@ namespace Projet_BDD_Fleurs
         private int quantite;
         private int id_magasin;
         private int stock;
+        private string dispo_produit;
         public AddEdit_contenuproduit()
         {
             InitializeComponent();
@@ -41,18 +42,27 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_contenuproduit(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_produit.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_produit.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_produit.Text;
+                command.CommandText = "SELECT dispo_produit from produit where nom_produit=@nom_produit;";
+                command.Parameters.AddWithValue("@nom_produit", nom);
+                dispo_produit = (string)command.ExecuteScalar();
+                if(!dispo_produit.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText = "Select count(*) from commande;";
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_produit", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
@@ -83,18 +93,27 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_produit(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_produit.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_produit.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_produit.Text;
+                command.CommandText = "SELECT dispo_produit from produit where nom_produit=@nom_produit;";
+                command.Parameters.AddWithValue("@nom_produit", nom);
+                dispo_produit = (string)command.ExecuteScalar();
+                if (!dispo_produit.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText = "Select count(*) from commande;";
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_produit", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
@@ -127,18 +146,27 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_produit.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_produit.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_produit.Text;
+                command.CommandText = "SELECT dispo_produit from produit where nom_produit=@nom_produit;";
+                command.Parameters.AddWithValue("@nom_produit", nom);
+                dispo_produit = (string)command.ExecuteScalar();
+                if (!dispo_produit.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText = "Select count(*) from commande;";
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_produit from produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_produit", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)

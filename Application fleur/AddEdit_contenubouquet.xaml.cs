@@ -26,6 +26,7 @@ namespace Projet_BDD_Fleurs
         private int quantite;
         private int id_magasin;
         private int stock;
+        private string categorie_bouquet;
         public AddEdit_contenubouquet()
         {
             InitializeComponent();
@@ -41,19 +42,28 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_contenubouquet(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_bouquet.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_bouquet.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_bouquet.Text;
+                command.CommandText = "SELECT categorie_bouquet from bouquet where nom_bouquet=@nom_bouquet;";
+                command.Parameters.AddWithValue("@nom_bouquet", nom);
+                categorie_bouquet = (string)command.ExecuteScalar();
+                if (!categorie_bouquet.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText= "Select count(*) from commande;";
                 quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_bouquet from bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_bouquet", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
@@ -82,19 +92,28 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_bouquet.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_bouquet.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_bouquet.Text;
+                command.CommandText = "SELECT categorie_bouquet from bouquet where nom_bouquet=@nom_bouquet;";
+                command.Parameters.AddWithValue("@nom_bouquet", nom);
+                categorie_bouquet = (string)command.ExecuteScalar();
+                if (!categorie_bouquet.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText = "Select count(*) from commande;";
                 quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_bouquet from bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_bouquet", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
@@ -125,19 +144,28 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_produit(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             if (int.TryParse(quantite_bouquet.Text, out int quantite) && quantite > 0 && !string.IsNullOrEmpty(nom_bouquet.Text))
             {
-                string query = "Select count(*) from commande;";
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand();
+                command.Connection = connection;
                 nom = nom_bouquet.Text;
+                command.CommandText = "SELECT categorie_bouquet from bouquet where nom_bouquet=@nom_bouquet;";
+                command.Parameters.AddWithValue("@nom_bouquet", nom);
+                categorie_bouquet = (string)command.ExecuteScalar();
+                if (!categorie_bouquet.Split(',').Contains(DateTime.Now.Month.ToString()))
+                {
+                    MessageBox.Show("Ce produit n'est pas disponible en ce moment.");
+                    connection.Close();
+                    return;
+                }
+                command.CommandText = "Select count(*) from commande;";
                 quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
                 id_magasin = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT stock_bouquet from bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
-                command.Parameters.AddWithValue("@nom_bouquet", nom);
                 command.Parameters.AddWithValue("@id_magasin", id_magasin);
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
@@ -151,14 +179,12 @@ namespace Projet_BDD_Fleurs
                 else
                 {
                     MessageBox.Show("Nous sommes désolés mais nous n'avons plus de stock pour ce produit dans ce magasin\nVeuillez nous excuser pour la gêne occasionnée.");
-                    connection.Close();
                     return;
                 }
             }
             else
             {
                 MessageBox.Show("Valeurs entrées incorrects ou champs incomplets.");
-                connection.Close();
                 return;
             }
             connection.Close();
