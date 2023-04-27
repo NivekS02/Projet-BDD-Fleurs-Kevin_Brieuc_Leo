@@ -39,6 +39,18 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonValider_commande(object sender, RoutedEventArgs e)
         {
+            nom = nom_magasin.Text;
+            string query = "SELECT id_magasin FROM magasin WHERE nom_magasin = @nomMagasin";
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@nomMagasin", nom);
+            object result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le nom de magasin entré n'existe pas. Veuillez entrer un nom de magasin valide.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
@@ -52,11 +64,9 @@ namespace Projet_BDD_Fleurs
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
                     courriel = courriel_client.Text;
-                    nom = nom_magasin.Text;
                     adresse = adresse_livraison.Text;
-                    connection.Open();
-                    string query = "SELECT id_client from client where courriel=@courriel_client;";
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    query = "SELECT id_client from client where courriel=@courriel_client;";
+                    command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@courriel_client", courriel);
                     id_client = Convert.ToInt32(command.ExecuteScalar());
                     query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
@@ -95,11 +105,23 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_bouquet(object sender, RoutedEventArgs e)
         {
+            nom = nom_magasin.Text;
+            string query = "SELECT id_magasin FROM magasin WHERE nom_magasin = @nomMagasin";
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@nomMagasin", nom);
+            object result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le nom de magasin entré n'existe pas. Veuillez entrer un nom de magasin valide.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
                 {
-                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.");
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Erreur");
                     connection.Close();
                     return;
                 }
@@ -108,11 +130,9 @@ namespace Projet_BDD_Fleurs
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
                     courriel = courriel_client.Text;
-                    nom = nom_magasin.Text;
                     adresse = adresse_livraison.Text;
-                    connection.Open();
-                    string query = "SELECT id_client from client where courriel=@courriel_client;";
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    query = "SELECT id_client from client where courriel=@courriel_client;";
+                    command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@courriel_client", courriel);
                     id_client = Convert.ToInt32(command.ExecuteScalar());
                     query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
@@ -147,11 +167,23 @@ namespace Projet_BDD_Fleurs
 
         private void ButtonAdd_produit(object sender, RoutedEventArgs e)
         {
+            nom = nom_magasin.Text;
+            string query = "SELECT id_magasin FROM magasin WHERE nom_magasin = @nomMagasin";
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@nomMagasin", nom);
+            object result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le nom de magasin entré n'existe pas. Veuillez entrer un nom de magasin valide.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
                 {
-                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.");
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires.", "Erreur");
                     connection.Close();
                     return;
                 }
@@ -160,11 +192,9 @@ namespace Projet_BDD_Fleurs
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
                     courriel = courriel_client.Text;
-                    nom = nom_magasin.Text;
                     adresse = adresse_livraison.Text;
-                    connection.Open();
-                    string query = "SELECT id_client from client where courriel=@courriel_client;";
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    query = "SELECT id_client from client where courriel=@courriel_client;";
+                    command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@courriel_client", courriel);
                     id_client = Convert.ToInt32(command.ExecuteScalar());
                     query = "SELECT id_magasin from magasin where nom_magasin=@nom_magasin;";
