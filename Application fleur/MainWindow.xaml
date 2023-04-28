@@ -222,16 +222,22 @@
                     <StackPanel Grid.Row="1">
                         <TextBlock Text="Prix moyen du bouquet acheté :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="PrixMoyenBouquet" Margin="5"/>
+                        <TextBlock Text="Prix moyen du produit acheté :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="PrixMoyenProduit" Margin="5"/>
                         <TextBlock Text="Meilleur client du mois :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MeilleurClientMois" Margin="5"/>
                         <TextBlock Text="Meilleur client de l'année :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MeilleurClientAnnee" Margin="5"/>
                         <TextBlock Text="Bouquet standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="BouquetPlusVendu" Margin="5"/>
+                        <TextBlock Text="Fleur standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="FleurPlusVendu" Margin="5"/>
                         <TextBlock Text="Magasin qui a généré le plus de chiffre d'affaires :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MagasinPlusRentable" Margin="5"/>
-                        <TextBlock Text="Fleur exotique la moins vendue :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock Text="Fleur la moins vendue :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="FleurMoinsVendue" Margin="5"/>
+                        <TextBlock Text="Bouquet le moins vendu :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="BouquetMoinsVendue" Margin="5"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

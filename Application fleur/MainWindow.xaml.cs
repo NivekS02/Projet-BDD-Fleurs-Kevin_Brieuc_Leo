@@ -36,36 +36,101 @@ namespace Projet_BDD_Fleurs
         private int nb_client;
         public MainWindow()
         {
-
+            // Prix moyen du bouquet acheté
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
             connection.Open();
-            MySqlCommand command1 = new MySqlCommand("SELECT AVG(prix_bouquet) FROM bouquet", connection);
-            double prixMoyen = (double)command1.ExecuteScalar();
+            MySqlCommand command = new MySqlCommand("SELECT sum(prix_bouquet * quantite_bouquet)/sum(quantite_bouquet) AS prix_moyen_bouquets_achetes FROM contenant_bouquet NATURAL JOIN bouquet ; ", connection);
+            double prixMoyen = (double)command.ExecuteScalar();
             PrixMoyenBouquet.Text = prixMoyen.ToString("C2");
 
-            /* Meilleur client du mois
-            MySqlCommand command2 = new MySqlCommand("SELECT TOP 1 Client, SUM(Prix) as TotalPrix FROM Commandes WHERE MONTH(Date) = MONTH(GETDATE()) GROUP BY Client ORDER BY TotalPrix DESC", connection);
-            MySqlDataReader reader2 = command2.ExecuteReader();
-            if (reader2.Read())
+            // Prix moyen du bouquet acheté
+            command.CommandText = "SELECT sum(prix_produit * quantite_produit)/sum(quantite_produit) AS prix_moyen_fleurs_achetees FROM contenant_produit NATURAL JOIN produit; ";
+            prixMoyen = (double)command.ExecuteScalar();
+            PrixMoyenProduit.Text = prixMoyen.ToString("C2");
+
+            // Meilleur client du mois
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "meilleur_client_mois";
+            command.Parameters.AddWithValue("@mois", 4);
+            command.Parameters.AddWithValue("@année", 2023);
+            MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                string nomClient = reader2.GetString(0);
-                double totalPrix = reader2.GetDouble(1);
-                MeilleurClientMois.Text = nomClient + " (" + totalPrix.ToString("C2") + ")";
+                string idClient = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                MeilleurClientMois.Text = idClient + " (" + totalPrix.ToString("C2") + ")";
             }
-            reader2.Close();
+            reader.Close();
 
             // Meilleur client de l'année
-            MySqlCommand command3 = new MySqlCommand("SELECT TOP 1 Client, SUM(Prix) as TotalPrix FROM Commandes WHERE YEAR(Date) = YEAR(GETDATE()) GROUP BY Client ORDER BY TotalPrix DESC", connection);
-            MySqlDataReader reader3 = command3.ExecuteReader();
-            if (reader3.Read())
+            command.CommandText = "meilleur_client_année";
+            reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                string nomClient = reader3.GetString(0);
-                double totalPrix = reader3.GetDouble(1);
-                MeilleurClientAnnee.Text = nomClient + " (" + totalPrix.ToString("C2") + ")";
+                string idClient = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                MeilleurClientAnnee.Text = idClient + " (" + totalPrix.ToString("C2") + ")";
             }
-            reader3.Close();*/
+            reader.Close();
+
+            // Bouquet standard qui a eu le plus de succès 
+            command = new MySqlCommand();
+            command.Connection = connection;
+            command.CommandText = "SELECT nom_bouquet, SUM(quantite_bouquet) AS Nombre_de_ventes FROM contenant_bouquet GROUP BY nom_bouquet ORDER BY Nombre_de_ventes DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_bouquet = reader.GetString(0);
+                double Nombre_de_ventes = reader.GetDouble(1);
+                BouquetPlusVendu.Text = nom_bouquet + " (" + Nombre_de_ventes.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //fleur standard qui a eu le plus de succès
+            command.CommandText = "SELECT nom_produit, SUM(quantite_produit) AS Nombre_de_ventes FROM contenant_produit GROUP BY nom_produit ORDER BY Nombre_de_ventes DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_produit = reader.GetString(0);
+                double Nombre_de_ventes = reader.GetDouble(1);
+                FleurPlusVendu.Text = nom_produit + " (" + Nombre_de_ventes.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //Quel magasin a généré le plus de succès 
+            command.CommandText = "SELECT nom_magasin, SUM(prix_total) AS total_benefice FROM commande NATURAL JOIN magasin GROUP BY nom_magasin ORDER BY total_benefice DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_magasin = reader.GetString(0);
+                double total_benefice = reader.GetDouble(1);
+                MagasinPlusRentable.Text = nom_magasin + " (" + total_benefice.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //La fleur la moins vendue  
+            command.CommandText = "SELECT nom_produit, SUM(quantite_produit) AS total_vendu FROM contenant_produit GROUP BY nom_produit ORDER BY total_vendu ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_produit = reader.GetString(0);
+                double total_vendu = reader.GetDouble(1);
+                FleurMoinsVendue.Text = nom_produit + " (" + total_vendu.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //Le bouquet le moins vendue
+            command.CommandText = "SELECT nom_bouquet, SUM(quantite_bouquet) AS total_vendu FROM contenant_bouquet GROUP BY nom_bouquet ORDER BY total_vendu ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_bouquet = reader.GetString(0);
+                double total_vendu = reader.GetDouble(1);
+                BouquetMoinsVendue.Text = nom_bouquet + " (" + total_vendu.ToString("C2") + ")";
+            }
+            reader.Close();
             connection.Close();
 
         }
@@ -450,21 +515,24 @@ namespace Projet_BDD_Fleurs
             }       
             command.CommandText ="SELECT count(*) from commande;";
             nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
-            command.CommandText = "SELECT date_livraison from commande where num_commande=@num_commande;";
             for (int i = 1; i <= nb_tt_commande; i++)
             {
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@num_commande", i);
-                object result = command.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
+                command.CommandText = "SELECT count(*) from contenant_bouquet where num_commande=@num_commande;";
+                nb_bouquet = Convert.ToInt32(command.ExecuteScalar());
+                if (nb_bouquet == 0)
                 {
-                    DateTime date_livraison = (DateTime)result;
-                    command.CommandText = "UPDATE commande SET etat_commande = 'CC' WHERE DATE_SUB(date_livraison, INTERVAL 6 DAY)<CURDATE()";
-                    command.ExecuteNonQuery();
-                    command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE date_livraison<CURDATE();";
+                    command.CommandText = "UPDATE commande SET etat_commande = 'VINV' WHERE num_commande=@num_commande";
                     command.ExecuteNonQuery();
                 }
             }
+            command.CommandText = "UPDATE commande SET etat_commande = 'CC' WHERE DATE_SUB(date_livraison, INTERVAL 6 DAY)<CURDATE()";
+            command.ExecuteNonQuery();
+            command.CommandText = "UPDATE commande SET etat_commande = 'CAL' WHERE DATE_SUB(date_livraison, INTERVAL 5 DAY)<CURDATE()";
+            command.ExecuteNonQuery();
+            command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE date_livraison<CURDATE()";
+            command.ExecuteNonQuery();
             for (int i = 1; i <= nb_tt_commande; i++)
             {
                 command.Parameters.Clear();

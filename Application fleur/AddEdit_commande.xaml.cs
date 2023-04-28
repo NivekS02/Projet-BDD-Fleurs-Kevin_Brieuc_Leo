@@ -51,6 +51,17 @@ namespace Projet_BDD_Fleurs
                 connection.Close();
                 return;
             }
+            courriel = courriel_client.Text;
+            query = "SELECT courriel FROM client WHERE courriel = @courriel_client";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@courriel_client", courriel);
+            result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le courriel entré n'existe pas. Veuillez entrer un courriel existant.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
@@ -63,7 +74,6 @@ namespace Projet_BDD_Fleurs
                 {
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
-                    courriel = courriel_client.Text;
                     adresse = adresse_livraison.Text;
                     query = "SELECT id_client from client where courriel=@courriel_client;";
                     command = new MySqlCommand(query, connection);
@@ -117,6 +127,17 @@ namespace Projet_BDD_Fleurs
                 connection.Close();
                 return;
             }
+            courriel = courriel_client.Text;
+            query = "SELECT courriel FROM client WHERE courriel = @courriel_client";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@courriel_client", courriel);
+            result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le courriel entré n'existe pas. Veuillez entrer un courriel existant.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
@@ -129,7 +150,6 @@ namespace Projet_BDD_Fleurs
                 {
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
-                    courriel = courriel_client.Text;
                     adresse = adresse_livraison.Text;
                     query = "SELECT id_client from client where courriel=@courriel_client;";
                     command = new MySqlCommand(query, connection);
@@ -179,6 +199,17 @@ namespace Projet_BDD_Fleurs
                 connection.Close();
                 return;
             }
+            courriel = courriel_client.Text;
+            query = "SELECT courriel FROM client WHERE courriel = @courriel_client";
+            command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@courriel_client", courriel);
+            result = command.ExecuteScalar();
+            if (result == null)
+            {
+                MessageBox.Show("Le courriel entré n'existe pas. Veuillez entrer un courriel existant.");
+                connection.Close();
+                return;
+            }
             if (creer == false)
             {
                 if (string.IsNullOrEmpty(message.Text) || string.IsNullOrEmpty(courriel_client.Text) || string.IsNullOrEmpty(nom_magasin.Text) || string.IsNullOrEmpty(adresse_livraison.Text))
@@ -191,7 +222,6 @@ namespace Projet_BDD_Fleurs
                 {
                     date_commande = DateTime.Now;
                     message_commande = message.Text;
-                    courriel = courriel_client.Text;
                     adresse = adresse_livraison.Text;
                     query = "SELECT id_client from client where courriel=@courriel_client;";
                     command = new MySqlCommand(query, connection);
@@ -212,7 +242,7 @@ namespace Projet_BDD_Fleurs
                     command.Parameters.AddWithValue("@adresse_livraison", adresse);
                     command.Parameters.AddWithValue("@message", message_commande);
                     command.Parameters.AddWithValue("@date_livraison", d_livraison);
-                    command.Parameters.AddWithValue("@etat_commande", "VINV");
+                    command.Parameters.AddWithValue("@etat_commande", "CPAV");
                     command.Parameters.AddWithValue("@id_client", id_client);
                     command.Parameters.AddWithValue("@id_magasin", id_magasin);
                     command.Parameters.AddWithValue("@prix_total", 0);
