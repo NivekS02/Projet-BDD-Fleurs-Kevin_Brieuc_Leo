@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Xml;
 
 
 
@@ -573,6 +574,38 @@ namespace Projet_BDD_Fleurs
                 command.ExecuteNonQuery();
             }
             connection.Close();
+        }
+        private static void query_to_xml(string query)
+        {
+            string table = "client";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            XmlDocument xmlDocument = new XmlDocument();
+            XmlElement rootElement = xmlDocument.CreateElement("Projet_Fleurs");
+            xmlDocument.AppendChild(rootElement);
+
+            while (reader.Read())
+            {
+                XmlElement rowElement = xmlDocument.CreateElement(table);
+                rootElement.AppendChild(rowElement);
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    XmlElement columnElement = xmlDocument.CreateElement(reader.GetName(i));
+                    columnElement.InnerText = reader.GetValue(i).ToString();
+                    rowElement.AppendChild(columnElement);
+                }
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            XmlWriter writer = XmlWriter.Create("result.xml", settings);
+            writer.WriteStartDocument();
+            xmlDocument.Save(writer);
+            writer.Close();
+            reader.Close();
         }
     }
 }
