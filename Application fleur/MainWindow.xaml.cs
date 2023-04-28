@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Xml;
+using System.IO;
+using System.Text.Json;
 
 
 
@@ -599,13 +601,33 @@ namespace Projet_BDD_Fleurs
             }
 
             XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Encoding = Encoding.UTF8;
             settings.Indent = true;
             XmlWriter writer = XmlWriter.Create("result.xml", settings);
             writer.WriteStartDocument();
             xmlDocument.Save(writer);
             writer.Close();
             reader.Close();
+        }
+
+        public static void query_to_json(string query)
+        {
+            MySqlCommand command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
+
+            while (reader.Read())
+            {
+                Dictionary<string, object> row = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    row.Add(reader.GetName(i), reader.GetValue(i));
+                }
+                results.Add(row);
+            }
+            reader.Close();
+            string json = JsonSerializer.Serialize(results);
+            File.WriteAllText("result.json", json);
         }
     }
 }
