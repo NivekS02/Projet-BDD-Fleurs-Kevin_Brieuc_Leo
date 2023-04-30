@@ -180,6 +180,14 @@ namespace Projet_BDD_Fleurs
                 prixparNom.Text = prixparNom.Text+ "\n" + nom + " (" + prix.ToString("C2") + ")";
             }
             reader.Close();
+            
+
+            // Création du fichier xml
+            query_to_xml("select * from client");
+
+            // Création du fichier Json
+            query_to_json("select * from client");
+
             connection.Close();
         }
         private void ConnexionButton_Click(object sender, RoutedEventArgs e) //fonction permettant à l'utilisateur de se connecter débloquant les onglets et affichant les lignes de la table
