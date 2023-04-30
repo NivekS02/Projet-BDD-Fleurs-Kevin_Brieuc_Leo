@@ -214,12 +214,16 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="500" />
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Grid.ColumnSpan="2" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Statistiques" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1">
+                    <StackPanel Grid.Row="1" Grid.Column="0">
                         <TextBlock Text="Prix moyen du bouquet acheté :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="PrixMoyenBouquet" Margin="5"/>
                         <TextBlock Text="Prix moyen du produit acheté :" FontWeight="Bold" Margin="5"/>
@@ -228,16 +232,27 @@
                         <TextBlock x:Name="MeilleurClientMois" Margin="5"/>
                         <TextBlock Text="Meilleur client de l'année :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MeilleurClientAnnee" Margin="5"/>
+                        <TextBlock Text="Pire client du mois :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="PireClientMois" Margin="5"/>
+                        <TextBlock Text="Pire client de l'année :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="PireClientAnnee" Margin="5"/>
                         <TextBlock Text="Bouquet standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="BouquetPlusVendu" Margin="5"/>
                         <TextBlock Text="Fleur standard qui a eu le plus de succès :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="FleurPlusVendu" Margin="5"/>
                         <TextBlock Text="Magasin qui a généré le plus de chiffre d'affaires :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MagasinPlusRentable" Margin="5"/>
-                        <TextBlock Text="Fleur la moins vendue :" FontWeight="Bold" Margin="5"/>
-                        <TextBlock x:Name="FleurMoinsVendue" Margin="5"/>
+                        
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <TextBlock Text="Magasin qui a généré le moins de chiffre d'affaires :" FontWeight="Bold" Margin="5" />
+                        <TextBlock x:Name="MagasinMoinsRentable" Margin="5"/>
+                        <TextBlock Text="Fleur la moins vendue :" FontWeight="Bold" Margin="5" />
+                        <TextBlock x:Name="FleurMoinsVendue" Margin="5" />
                         <TextBlock Text="Bouquet le moins vendu :" FontWeight="Bold" Margin="5"/>
-                        <TextBlock x:Name="BouquetMoinsVendue" Margin="5"/>
+                        <TextBlock x:Name="BouquetMoinsVendue" Margin="5"  />
+                        <TextBlock Text="Tous les produits et bouquets classés par ordre croissant de prix  :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="prixparNom" Margin="5" />
                     </StackPanel>
                 </Grid>
             </TabItem>

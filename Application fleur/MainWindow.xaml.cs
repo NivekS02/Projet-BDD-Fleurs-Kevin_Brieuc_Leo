@@ -78,6 +78,29 @@ namespace Projet_BDD_Fleurs
             }
             reader.Close();
 
+            // Pire client du mois
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "pire_client_mois";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string idClient = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                PireClientMois.Text = idClient + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            // Pire client de l'année
+            command.CommandText = "pire_client_année";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string idClient = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                PireClientAnnee.Text = idClient + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader.Close();
+
             // Bouquet standard qui a eu le plus de succès 
             command = new MySqlCommand();
             command.Connection = connection;
@@ -113,6 +136,17 @@ namespace Projet_BDD_Fleurs
             }
             reader.Close();
 
+            //Quel magasin a généré le moins de succès 
+            command.CommandText = "SELECT nom_magasin, SUM(prix_total) AS total_benefice FROM commande NATURAL JOIN magasin GROUP BY nom_magasin ORDER BY total_benefice ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string nom_magasin = reader.GetString(0);
+                double total_benefice = reader.GetDouble(1);
+                MagasinMoinsRentable.Text = nom_magasin + " (" + total_benefice.ToString("C2") + ")";
+            }
+            reader.Close();
+
             //La fleur la moins vendue  
             command.CommandText = "SELECT nom_produit, SUM(quantite_produit) AS total_vendu FROM contenant_produit GROUP BY nom_produit ORDER BY total_vendu ASC LIMIT 1; ";
             reader = command.ExecuteReader();
@@ -124,7 +158,7 @@ namespace Projet_BDD_Fleurs
             }
             reader.Close();
 
-            //Le bouquet le moins vendue
+            //Le bouquet le moins vendu
             command.CommandText = "SELECT nom_bouquet, SUM(quantite_bouquet) AS total_vendu FROM contenant_bouquet GROUP BY nom_bouquet ORDER BY total_vendu ASC LIMIT 1; ";
             reader = command.ExecuteReader();
             if (reader.Read())
@@ -134,10 +168,21 @@ namespace Projet_BDD_Fleurs
                 BouquetMoinsVendue.Text = nom_bouquet + " (" + total_vendu.ToString("C2") + ")";
             }
             reader.Close();
-            connection.Close();
 
+
+            //Tous les produits et bouquets classés par ordre croissant de prix 
+            command.CommandText = "SELECT nom_produit, prix_produit FROM produit UNION SELECT nom_bouquet, prix_bouquet FROM bouquet ORDER BY prix_produit; ";
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string nom = reader.GetString(0);
+                double prix = reader.GetDouble(1);
+                prixparNom.Text = prixparNom.Text+ "\n" + nom + " (" + prix.ToString("C2") + ")";
+            }
+            reader.Close();
+            connection.Close();
         }
-        private void ConnexionButton_Click(object sender, RoutedEventArgs e)
+        private void ConnexionButton_Click(object sender, RoutedEventArgs e) //fonction permettant à l'utilisateur de se connecter débloquant les onglets et affichant les lignes de la table
         {
             email = Email.Text;
             password = Mot_de_passe.Password;
@@ -151,7 +196,7 @@ namespace Projet_BDD_Fleurs
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@password", password);
             long compteur = (long)command.ExecuteScalar();
-            if (email == "root" && password == "root")
+            if (email == "root" && password == "root") //se connecter en admin
             {
                 Onglet_Client.Visibility = Visibility.Visible;
                 Onglet_Magasin.Visibility = Visibility.Visible;
@@ -208,7 +253,7 @@ namespace Projet_BDD_Fleurs
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
-            else if (email == "bozo" && password == "bozo")
+            else if (email == "bozo" && password == "bozo") //se connecter en lecture seule
             {
                 Onglet_Client.Visibility = Visibility.Visible;
                 Onglet_Magasin.Visibility = Visibility.Visible;
@@ -265,7 +310,7 @@ namespace Projet_BDD_Fleurs
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
-            else if (compteur > 0)
+            else if (compteur > 0) //se connecter en utilisateur
             {
                 Onglet_Client.Visibility = Visibility.Visible;
                 Onglet_Magasin.Visibility = Visibility.Visible;
@@ -331,7 +376,7 @@ namespace Projet_BDD_Fleurs
                 adapter.Fill(dataTable);
                 Contenant_bouquetDataGrid.ItemsSource = dataTable.DefaultView;
             }
-            else
+            else //Courriel non existant dans la base de donnée
             {
                 Onglet_Client.Visibility = Visibility.Collapsed;
                 Onglet_Magasin.Visibility = Visibility.Collapsed;
@@ -353,11 +398,11 @@ namespace Projet_BDD_Fleurs
 
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) //Pour naviguer dans les onglets
         {
 
         }
-        private void ButtonAdd_client(object sender, RoutedEventArgs e)
+        private void ButtonAdd_client(object sender, RoutedEventArgs e) 
         {
             var w = new AddEdit_client();
             w.Show();
@@ -395,7 +440,7 @@ namespace Projet_BDD_Fleurs
             w.Show();
         }
 
-        private void RefreshButton_client(object sender, RoutedEventArgs e)
+        private void RefreshButton_client(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table client
         {
             MySqlCommand command = new MySqlCommand();
             command.Connection = connection;
@@ -419,7 +464,7 @@ namespace Projet_BDD_Fleurs
             }
             command.CommandText = "SELECT count(*) from client;";
             nb_client = Convert.ToInt32(command.ExecuteScalar());
-            for (int i = 1; i <= nb_client; i++)
+            for (int i = 1; i <= nb_client; i++) //Pour le statut de fidélité (on compte le nombre de commandes dans le dernier mois)
             {
                 command.Parameters.Clear();
                 command.CommandText = "SELECT SUM(cb.quantite_bouquet) AS nombre_bouquets_commandes FROM contenant_bouquet cb INNER JOIN commande c ON cb.num_commande = c.num_commande INNER JOIN client cl ON c.id_client = cl.id_client WHERE cl.id_client =@id_client AND c.date_commande >= DATE_SUB(NOW(), INTERVAL 1 MONTH);";
@@ -447,7 +492,7 @@ namespace Projet_BDD_Fleurs
             }
             connection.Close();
         }
-        private void RefreshButton_magasin(object sender, RoutedEventArgs e)
+        private void RefreshButton_magasin(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table magasin
         {
             string query = "SELECT * FROM magasin";
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
@@ -455,7 +500,7 @@ namespace Projet_BDD_Fleurs
             adapter.Fill(dataTable);
             MagasinDataGrid.ItemsSource = dataTable.DefaultView;
         }
-        private void RefreshButton_produit(object sender, RoutedEventArgs e)
+        private void RefreshButton_produit(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table produit
         {
             string query = "SELECT * FROM produit";
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
@@ -463,7 +508,7 @@ namespace Projet_BDD_Fleurs
             adapter.Fill(dataTable);
             ProduitDataGrid.ItemsSource = dataTable.DefaultView;
         }
-        private void RefreshButton_bouquet(object sender, RoutedEventArgs e)
+        private void RefreshButton_bouquet(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table bouquet
         {
             string query = "SELECT * FROM bouquet";
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
@@ -471,7 +516,7 @@ namespace Projet_BDD_Fleurs
             adapter.Fill(dataTable);
             BouquetDataGrid.ItemsSource = dataTable.DefaultView;
         }
-        private void RefreshButton_commande(object sender, RoutedEventArgs e)
+        private void RefreshButton_commande(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table commande
         {
             MySqlCommand command = new MySqlCommand();
             connection.Open();
@@ -518,7 +563,7 @@ namespace Projet_BDD_Fleurs
             }       
             command.CommandText ="SELECT count(*) from commande;";
             nb_tt_commande = Convert.ToInt32(command.ExecuteScalar());
-            for (int i = 1; i <= nb_tt_commande; i++)
+            for (int i = 1; i <= nb_tt_commande; i++) //Pour l'état_commande (on compare la date de livraison à la date actuelle)
             {
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@num_commande", i);
@@ -536,7 +581,7 @@ namespace Projet_BDD_Fleurs
             command.ExecuteNonQuery();
             command.CommandText = "UPDATE commande SET etat_commande = 'CL' WHERE date_livraison<CURDATE()";
             command.ExecuteNonQuery();
-            for (int i = 1; i <= nb_tt_commande; i++)
+            for (int i = 1; i <= nb_tt_commande; i++) //Calcul du prix de la commande en prenant en compte le statut de fidélité
             {
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@num_commande", i);
