@@ -406,6 +406,9 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Visible;
                 Add_produit.Visibility = Visibility.Visible;
                 Del_commande.Visibility = Visibility.Visible;
+                Del_bouquet.Visibility = Visibility.Visible;
+                Del_produit.Visibility = Visibility.Visible;
+                Del_client.Visibility = Visibility.Visible;
                 Refresh_client.Visibility = Visibility.Visible;
                 Refresh_bouquet.Visibility = Visibility.Visible;
                 Refresh_produit.Visibility = Visibility.Visible;
@@ -463,6 +466,9 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
                 Refresh_client.Visibility = Visibility.Visible;
                 Refresh_bouquet.Visibility = Visibility.Visible;
                 Refresh_produit.Visibility = Visibility.Visible;
@@ -520,6 +526,9 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
                 Refresh_client.Visibility = Visibility.Visible;
                 Refresh_bouquet.Visibility = Visibility.Visible;
                 Refresh_produit.Visibility = Visibility.Visible;
@@ -586,6 +595,9 @@ namespace Projet_BDD_Fleurs
                 Add_magasin.Visibility = Visibility.Collapsed;
                 Add_produit.Visibility = Visibility.Collapsed;
                 Del_commande.Visibility = Visibility.Collapsed;
+                Del_bouquet.Visibility = Visibility.Collapsed;
+                Del_produit.Visibility = Visibility.Collapsed;
+                Del_client.Visibility = Visibility.Collapsed;
                 Onglet_Statistique.Visibility = Visibility.Collapsed;
                 MessageBox.Show("Mot de passe ou email entré incorrect");
             }
@@ -628,7 +640,23 @@ namespace Projet_BDD_Fleurs
             var w = new Del_commande();
             w.Show();
         }
+        private void ButtonDel_client(object sender, RoutedEventArgs e)
+        {
+            var w = new Del_client();
+            w.Show();
+        }
 
+        private void ButtonDel_produit(object sender, RoutedEventArgs e)
+        {
+            var w = new Del_produit();
+            w.Show();
+        }
+
+        private void ButtonDel_bouquet(object sender, RoutedEventArgs e)
+        {
+            var w = new Del_bouquet();
+            w.Show();
+        }
         private void Signup_Button_Click(object sender, RoutedEventArgs e)
         {
             var w = new AddEdit_client();

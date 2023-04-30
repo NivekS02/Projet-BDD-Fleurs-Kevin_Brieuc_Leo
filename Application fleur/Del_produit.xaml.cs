@@ -13,39 +13,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
-
 namespace Projet_BDD_Fleurs
 {
     /// <summary>
-    /// Logique d'interaction pour Del_commande.xaml
+    /// Logique d'interaction pour Del_produit.xaml
     /// </summary>
-    public partial class Del_commande : Window
+    public partial class Del_produit : Window
     {
+        private string nom;
         public static MySqlConnection connection;
-
-        public Del_commande()
+        public Del_produit()
         {
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
         }
 
-        private void ButtonDel_commande(object sender, RoutedEventArgs e)
+        private void ButtonDel_produit(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(ID_commande.Text, out int ID) && ID>0)
+            if (!string.IsNullOrEmpty(nom_produit.Text) && !string.IsNullOrEmpty(nom_produit.Text))
             {
+                nom = nom_produit.Text;
                 connection.Open();
-                string query = "DELETE FROM contenant_produit where num_commande=@ID;";
+                string query = "DELETE FROM contenant_produit where nom_produit=@nom_produit;";
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
+                command.Parameters.AddWithValue("@nom_produit", nom);
                 command.ExecuteNonQuery();
-                query = "DELETE FROM contenant_bouquet where num_commande=@ID;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
-                command.ExecuteNonQuery();
-                query = "DELETE FROM commande where num_commande=@ID;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
+                command.CommandText = "DELETE FROM produit where nom_produit=@nom_produit;";
                 command.ExecuteNonQuery();
                 connection.Close();
             }

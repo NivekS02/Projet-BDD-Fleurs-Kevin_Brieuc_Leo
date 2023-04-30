@@ -138,7 +138,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Del_bouquet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Del_client.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Del_commande.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Del_produit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,8 +183,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Del_bouquet.xaml.cs">
+      <DependentUpon>Del_bouquet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Del_client.xaml.cs">
+      <DependentUpon>Del_client.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Del_commande.xaml.cs">
       <DependentUpon>Del_commande.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Del_produit.xaml.cs">
+      <DependentUpon>Del_produit.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

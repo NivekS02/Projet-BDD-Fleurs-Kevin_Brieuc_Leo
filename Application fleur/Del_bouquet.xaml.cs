@@ -13,39 +13,39 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
-
 namespace Projet_BDD_Fleurs
 {
     /// <summary>
-    /// Logique d'interaction pour Del_commande.xaml
+    /// Logique d'interaction pour Del_bouquet.xaml
     /// </summary>
-    public partial class Del_commande : Window
+    public partial class Del_bouquet : Window
     {
+        private string nom;
         public static MySqlConnection connection;
-
-        public Del_commande()
+        public Del_bouquet()
         {
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
         }
 
-        private void ButtonDel_commande(object sender, RoutedEventArgs e)
+        private void ButtonAnnuler(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(ID_commande.Text, out int ID) && ID>0)
+            Window activeWindow = Window.GetWindow(this);
+            activeWindow.Close();
+        }
+
+        private void ButtonDel_bouquet(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(nom_bouquet.Text) && !string.IsNullOrEmpty(nom_bouquet.Text))
             {
+                nom = nom_bouquet.Text;
                 connection.Open();
-                string query = "DELETE FROM contenant_produit where num_commande=@ID;";
+                string query = "DELETE FROM contenant_bouquet where nom_bouquet=@nom_bouquet;";
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
+                command.Parameters.AddWithValue("@nom_bouquet", nom);
                 command.ExecuteNonQuery();
-                query = "DELETE FROM contenant_bouquet where num_commande=@ID;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
-                command.ExecuteNonQuery();
-                query = "DELETE FROM commande where num_commande=@ID;";
-                command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", ID);
+                command.CommandText = "DELETE FROM bouquet where nom_bouquet=@nom_bouquet;";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -54,12 +54,6 @@ namespace Projet_BDD_Fleurs
                 MessageBox.Show("Valeur entrée incorrect.");
                 return;
             }
-            Window activeWindow = Window.GetWindow(this);
-            activeWindow.Close();
-        }
-
-        private void ButtonAnnuler(object sender, RoutedEventArgs e)
-        {
             Window activeWindow = Window.GetWindow(this);
             activeWindow.Close();
         }

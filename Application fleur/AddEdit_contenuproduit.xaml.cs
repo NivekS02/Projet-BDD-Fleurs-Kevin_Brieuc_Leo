@@ -23,7 +23,6 @@ namespace Projet_BDD_Fleurs
         public static MySqlConnection connection;
         private int numero_commande;
         private string nom;
-        private int quantite;
         private int id_magasin;
         private int stock;
         private string dispo_produit;

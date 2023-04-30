@@ -55,7 +55,8 @@
                         </DataGrid.Columns>
                         
                     </DataGrid>
-                    <Button x:Name="Add_client" Content="Ajouter" Click="ButtonAdd_client" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Add_client" Content="Ajouter" Click="ButtonAdd_client" HorizontalAlignment="Left" Margin="770,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Del_client" Content="Supprimer" Click="ButtonDel_client" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                     <Button x:Name="Refresh_client" Content="Actualiser" Click="RefreshButton_client" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                     
                 </Grid>
@@ -106,7 +107,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="Add_produit" Content="Ajouter" Click="ButtonAdd_produit" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
+                    <Button x:Name="Add_produit" Content="Ajouter" Click="ButtonAdd_produit" HorizontalAlignment="Left" Margin="770,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed"/>
+                    <Button x:Name="Del_produit" Content="Supprimer" Click="ButtonDel_produit" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                     <Button x:Name="Refresh_produit" Content="Actualiser" Click="RefreshButton_produit" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
@@ -131,7 +133,8 @@
                             <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="Add_bouquet" Content="Ajouter" Click="ButtonAdd_bouquet" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Add_bouquet" Content="Ajouter" Click="ButtonAdd_bouquet" HorizontalAlignment="Left" Margin="770,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
+                    <Button x:Name="Del_bouquet" Content="Supprimer" Click="ButtonDel_bouquet" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                     <Button x:Name="Refresh_bouquet" Content="Actualiser" Click="RefreshButton_bouquet" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
