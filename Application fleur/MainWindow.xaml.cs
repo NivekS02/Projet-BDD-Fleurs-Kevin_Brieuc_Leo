@@ -39,11 +39,13 @@ namespace Projet_BDD_Fleurs
         private int nb_client;
         public MainWindow()
         {
-            // Prix moyen du bouquet acheté
+            
             InitializeComponent();
             string connectionString = "SERVER=localhost;PORT=3306;DATABASE=Projet_fleurs;UID=root;PASSWORD=root;";
             connection = new MySqlConnection(connectionString);
             connection.Open();
+
+            // Prix moyen du bouquet acheté
             MySqlCommand command = new MySqlCommand("SELECT sum(prix_bouquet * quantite_bouquet)/sum(quantite_bouquet) AS prix_moyen_bouquets_achetes FROM contenant_bouquet NATURAL JOIN bouquet ; ", connection);
             double prixMoyen = (double)command.ExecuteScalar();
             PrixMoyenBouquet.Text = prixMoyen.ToString("C2");
@@ -110,7 +112,7 @@ namespace Projet_BDD_Fleurs
             {
                 string nom_bouquet = reader.GetString(0);
                 double Nombre_de_ventes = reader.GetDouble(1);
-                BouquetPlusVendu.Text = nom_bouquet + " (" + Nombre_de_ventes.ToString("C2") + ")";
+                BouquetPlusVendu.Text = nom_bouquet + " (" + Nombre_de_ventes + ")";
             }
             reader.Close();
 
@@ -121,7 +123,7 @@ namespace Projet_BDD_Fleurs
             {
                 string nom_produit = reader.GetString(0);
                 double Nombre_de_ventes = reader.GetDouble(1);
-                FleurPlusVendu.Text = nom_produit + " (" + Nombre_de_ventes.ToString("C2") + ")";
+                FleurPlusVendu.Text = nom_produit + " (" + Nombre_de_ventes + ")";
             }
             reader.Close();
 
@@ -154,7 +156,7 @@ namespace Projet_BDD_Fleurs
             {
                 string nom_produit = reader.GetString(0);
                 double total_vendu = reader.GetDouble(1);
-                FleurMoinsVendue.Text = nom_produit + " (" + total_vendu.ToString("C2") + ")";
+                FleurMoinsVendue.Text = nom_produit + " (" + total_vendu + ")";
             }
             reader.Close();
 
@@ -165,7 +167,7 @@ namespace Projet_BDD_Fleurs
             {
                 string nom_bouquet = reader.GetString(0);
                 double total_vendu = reader.GetDouble(1);
-                BouquetMoinsVendue.Text = nom_bouquet + " (" + total_vendu.ToString("C2") + ")";
+                BouquetMoinsVendue.Text = nom_bouquet + " (" + total_vendu + ")";
             }
             reader.Close();
 
@@ -180,7 +182,192 @@ namespace Projet_BDD_Fleurs
                 prixparNom.Text = prixparNom.Text+ "\n" + nom + " (" + prix.ToString("C2") + ")";
             }
             reader.Close();
-            
+
+            //Nombre de client qui ont le statut Bronze
+            command.CommandText = "SELECT COUNT(statut_fidelite) FROM client WHERE statut_fidelite = 'Bronze'; ";
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string nombre = reader.GetString(0);
+                nombreClientBronze.Text = nombre;
+            }
+            reader.Close();
+
+            //Nombre de client qui ont le statut Or
+            command.CommandText = "SELECT COUNT(statut_fidelite) FROM client WHERE statut_fidelite = 'Or'; ";
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string nombre = reader.GetString(0);
+                nombreClientOr.Text = nombre;
+            }
+            reader.Close();
+
+            //Nombre de client qui n'ont pas de statut
+            command.CommandText = "SELECT COUNT(statut_fidelite) FROM client WHERE statut_fidelite is NULL; ";
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                string nombre = reader.GetString(0);
+                nombreClientRien.Text = nombre;
+            }
+            reader.Close();
+
+            //la commande la plus chère 
+            command.CommandText = "SELECT num_commande, prix_total FROM commande GROUP BY num_commande ORDER BY num_commande ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                Prixcommandepluschère.Text = num_commande + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //la commande la moins chère 
+            command.CommandText = "SELECT num_commande, prix_total FROM commande GROUP BY num_commande ORDER BY num_commande DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double totalPrix = reader.GetDouble(1);
+                Prixcommandemoinschère.Text = num_commande + " (" + totalPrix.ToString("C2") + ")";
+            }
+            reader.Close();
+
+            //Quel est l'état de commande le plus récurrent
+            command.CommandText = "SELECT etat_commande, COUNT(etat_commande) AS nombre_d_etat FROM commande GROUP BY etat_commande ORDER BY nombre_d_etat DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string etat_commande = reader.GetString(0);
+                double nombre = reader.GetDouble(1);
+                pluscourantetat.Text = etat_commande + " (" + nombre + ")";
+            }
+            reader.Close();
+
+            //Quel est l'état de commande le moins récurrent    
+            command.CommandText = "SELECT etat_commande, COUNT(etat_commande) AS nombre_d_etat FROM commande GROUP BY etat_commande ORDER BY nombre_d_etat ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string etat_commande = reader.GetString(0);
+                double nombre = reader.GetDouble(1);
+                moinscourantetat.Text = etat_commande + " (" + nombre + ")";
+            }
+            reader.Close();
+
+            //Le client ayant le plus commandé  
+            command.CommandText = "SELECT id_client, COUNT(id_client) AS nombre_de_commandes FROM commande GROUP BY id_client ORDER BY nombre_de_commandes DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_client = reader.GetString(0);
+                double nombre_commande = reader.GetDouble(1);
+                maxclientcommande.Text = id_client + " (" + nombre_commande + "commande(s))";
+            }
+            reader.Close();
+
+            //Le client ayant le moins commandé
+            command.CommandText = "SELECT id_client, COUNT(id_client) AS nombre_de_commandes FROM commande GROUP BY id_client ORDER BY nombre_de_commandes ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_client = reader.GetString(0);
+                double nombre_commande = reader.GetDouble(1);
+                minclientcommande.Text = id_client + " (" + nombre_commande + "commande(s))";
+            }
+            reader.Close();
+
+            //Le magasin ayant réalisé le plus de commandes 
+            command.CommandText = "SELECT id_magasin, COUNT(id_magasin) AS nombre_de_commandes FROM commande GROUP BY id_magasin ORDER BY nombre_de_commandes DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_magasin = reader.GetString(0);
+                double nombre_commande = reader.GetDouble(1);
+                Maxmagasincommande.Text = id_magasin + " (" + nombre_commande + "commande(s))";
+            }
+            reader.Close();
+
+            //Le magasin ayant réalisé le moins de commandes 
+            command.CommandText = "SELECT id_magasin, COUNT(id_magasin) AS nombre_de_commandes FROM commande GROUP BY id_magasin ORDER BY nombre_de_commandes ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_magasin = reader.GetString(0);
+                double nombre_commande = reader.GetDouble(1);
+                Minmagasincommande.Text = id_magasin + " (" + nombre_commande + "commande(s))";
+            }
+            reader.Close();
+
+            //La commande contenant le plus de produit
+            command.CommandText = "SELECT num_commande, quantite_produit FROM contenant_produit ORDER BY quantite_produit DESC LIMIT 1;";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double quantite = reader.GetDouble(1);
+                maxcommandeproduit.Text = num_commande + " (" + quantite + "produit(s))";
+            }
+            reader.Close();
+
+            //La commande contenant le moins de produit
+            command.CommandText = "SELECT num_commande, quantite_produit FROM contenant_produit ORDER BY quantite_produit ASC LIMIT 1;";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double quantite = reader.GetDouble(1);
+                mincommandeproduit.Text = num_commande + " (" + quantite + "produit(s))";
+            }
+            reader.Close();
+
+            //La commande contenant le plus de bouquet
+            command.CommandText = "SELECT num_commande, quantite_bouquet FROM contenant_bouquet ORDER BY quantite_bouquet DESC LIMIT 1;";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double quantite = reader.GetDouble(1);
+                maxcommandebouquet.Text = num_commande + " (" + quantite + "bouquet(s))";
+            }
+            reader.Close();
+
+            //La commande contenant le moins de bouquet
+            command.CommandText = "SELECT num_commande, quantite_bouquet FROM contenant_bouquet ORDER BY quantite_bouquet ASC LIMIT 1;";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string num_commande = reader.GetString(0);
+                double quantite = reader.GetDouble(1);
+                mincommandebouquet.Text = num_commande + " (" + quantite + "bouquet(s))";
+            }
+            reader.Close();
+
+            //Magasin proposant le plus de produit ET bouquet différents
+            command.CommandText = "SELECT magasin.id_magasin, magasin.nom_magasin, COUNT(*) AS total_produits_et_bouquets FROM(SELECT id_magasin, nom_produit, NULL AS nom_bouquet FROM produit UNION ALL SELECT id_magasin, NULL AS nom_produit, nom_bouquet FROM bouquet ) AS produits_bouquets JOIN magasin ON magasin.id_magasin = produits_bouquets.id_magasin GROUP BY nom_magasin, id_magasin ORDER BY total_produits_et_bouquets DESC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_magasin = reader.GetString(0);
+                string nom_magasin = reader.GetString(1);
+                int total_produits_et_bouquets = reader.GetInt32(2);
+                maxnombreelement.Text = id_magasin + " "+ nom_magasin +" "+total_produits_et_bouquets;
+            }
+            reader.Close();
+
+            //Magasin proposant le moins de produit ET bouquet différents
+            command.CommandText = "SELECT magasin.id_magasin, magasin.nom_magasin, COUNT(*) AS total_produits_et_bouquets FROM(SELECT id_magasin, nom_produit, NULL AS nom_bouquet FROM produit UNION ALL SELECT id_magasin, NULL AS nom_produit, nom_bouquet FROM bouquet ) AS produits_bouquets JOIN magasin ON magasin.id_magasin = produits_bouquets.id_magasin GROUP BY nom_magasin, id_magasin ORDER BY total_produits_et_bouquets ASC LIMIT 1; ";
+            reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                string id_magasin = reader.GetString(0);
+                string nom_magasin = reader.GetString(1);
+                int total_produits_et_bouquets = reader.GetInt32(2);
+                minnombreelement.Text = id_magasin + " " + nom_magasin + " " + total_produits_et_bouquets;
+            }
+            reader.Close();
 
             // Création du fichier xml
             query_to_xml("select * from client");

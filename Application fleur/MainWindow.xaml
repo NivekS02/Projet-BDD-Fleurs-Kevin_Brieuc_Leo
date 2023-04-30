@@ -215,11 +215,12 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="333"/>
                         <ColumnDefinition Width="500" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.ColumnSpan="2" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Grid.ColumnSpan="3" Background="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Statistiques" FontSize="24" FontWeight="Bold" Foreground="Black" />
                     </StackPanel>
 
@@ -242,17 +243,52 @@
                         <TextBlock x:Name="FleurPlusVendu" Margin="5"/>
                         <TextBlock Text="Magasin qui a généré le plus de chiffre d'affaires :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="MagasinPlusRentable" Margin="5"/>
-                        
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1">
                         <TextBlock Text="Magasin qui a généré le moins de chiffre d'affaires :" FontWeight="Bold" Margin="5" />
                         <TextBlock x:Name="MagasinMoinsRentable" Margin="5"/>
                         <TextBlock Text="Fleur la moins vendue :" FontWeight="Bold" Margin="5" />
                         <TextBlock x:Name="FleurMoinsVendue" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
                         <TextBlock Text="Bouquet le moins vendu :" FontWeight="Bold" Margin="5"/>
                         <TextBlock x:Name="BouquetMoinsVendue" Margin="5"  />
                         <TextBlock Text="Tous les produits et bouquets classés par ordre croissant de prix  :" FontWeight="Bold" Margin="5"  />
                         <TextBlock x:Name="prixparNom" Margin="5" />
+                        <TextBlock Text="Nombre de client qui ont le statut Bronze :" FontWeight="Bold" Margin="5"/>
+                        <TextBlock x:Name="nombreClientBronze" Margin="5"  />
+                        <TextBlock Text="Nombre de client qui ont le statut Or  :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="nombreClientOr" Margin="5" />
+                        <TextBlock Text="Nombre de client qui n'ont pas de statut de fidélité :" FontWeight="Bold" Margin="5" />
+                        <TextBlock x:Name="nombreClientRien" Margin="5" />
+                        <TextBlock Text="La commande la plus chère :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="Prixcommandepluschère" Margin="5" />
+                        <TextBlock Text="La commande la moins chère :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="Prixcommandemoinschère" Margin="5" />
+                        <TextBlock Text="Magasin proposant le plus de produit ET bouquet différents :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="maxnombreelement" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2">
+                        <TextBlock Text="Magasin proposant le moins de produit ET bouquet différents :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="minnombreelement" Margin="5" />
+                        <TextBlock Text="Quel est l'état de commande le plus récurrent :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="pluscourantetat" Margin="5" />
+                        <TextBlock Text="Quel est l'état de commande le moins récurrent :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="moinscourantetat" Margin="5" />
+                        <TextBlock Text="Le client ayant le plus commandé :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="maxclientcommande" Margin="5" />
+                        <TextBlock Text="Le client ayant le moins commandé :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="minclientcommande" Margin="5" />
+                        <TextBlock Text="Le magasin ayant réalisé le plus de commandes :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="Maxmagasincommande" Margin="5" />
+                        <TextBlock Text="Le magasin ayant réalisé le moins de commandes :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="Minmagasincommande" Margin="5" />
+                        <TextBlock Text="La commande contenant le plus de produit :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="maxcommandeproduit" Margin="5" />
+                        <TextBlock Text="La commande contenant le moins de produit :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="mincommandeproduit" Margin="5" />
+                        <TextBlock Text="La commande contenant le plus de bouquet :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="maxcommandebouquet" Margin="5" />
+                        <TextBlock Text="La commande contenant le moins de bouquet :" FontWeight="Bold" Margin="5"  />
+                        <TextBlock x:Name="mincommandebouquet" Margin="5" />
                     </StackPanel>
                 </Grid>
             </TabItem>
