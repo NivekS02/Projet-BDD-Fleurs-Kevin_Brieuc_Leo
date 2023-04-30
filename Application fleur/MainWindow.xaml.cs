@@ -370,10 +370,10 @@ namespace Projet_BDD_Fleurs
             reader.Close();
 
             // Création du fichier xml
-            query_to_xml("select * from client");
+            query_to_xml("SELECT *\r\nFROM client\r\nNATURAL JOIN (\r\n  SELECT id_client\r\n  FROM commande\r\n  WHERE date_commande >= DATE_SUB(NOW(), INTERVAL 1 MONTH)\r\n  GROUP BY id_client\r\n  HAVING COUNT(*) > 1\r\n) AS clients_frequents;");
 
             // Création du fichier Json
-            query_to_json("select * from client");
+            query_to_json("SELECT *\r\nFROM client\r\nWHERE id_client NOT IN (\r\n  SELECT id_client\r\n  FROM commande\r\n  WHERE date_commande > DATE_SUB(NOW(), INTERVAL 6 MONTH)\r\n);");
 
             connection.Close();
         }
