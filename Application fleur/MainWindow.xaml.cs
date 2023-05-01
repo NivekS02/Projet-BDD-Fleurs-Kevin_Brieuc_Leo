@@ -194,7 +194,7 @@ namespace Projet_BDD_Fleurs
             reader.Close();
 
             //Nombre de client qui ont le statut Or
-            command.CommandText = "SELECT COUNT(statut_fidelite) FROM client WHERE statut_fidelite = 'Or'; ";
+            command.CommandText = "SELECT COUNT(*) FROM client WHERE statut_fidelite = 'Or'; ";
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -1008,7 +1008,7 @@ namespace Projet_BDD_Fleurs
             reader.Close();
 
             //Nombre de client qui n'ont pas de statut
-            command.CommandText = "SELECT COUNT(statut_fidelite) FROM client WHERE statut_fidelite is NULL; ";
+            command.CommandText = "SELECT COUNT(*) FROM client WHERE statut_fidelite is NULL; ";
             reader = command.ExecuteReader();
             while (reader.Read())
             {
