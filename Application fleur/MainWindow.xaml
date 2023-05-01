@@ -82,7 +82,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="Add_magasin" Content="Ajouter" Click="ButtonAdd_magasin" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65"/>
+                    <Button x:Name="Add_magasin" Content="Ajouter" Click="ButtonAdd_magasin" HorizontalAlignment="Left" Margin="770,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65"/>
+                    <Button x:Name="Del_magasin" Content="Supprimer" Click="ButtonDel_magasin" HorizontalAlignment="Left" Margin="840,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                     <Button x:Name="Refresh_magasin" Content="Actualiser" Click="RefreshButton_magasin" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
@@ -184,6 +185,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
                             <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_produit}" Width="Auto" />
+                            <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="Auto" />
                             <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_produit}" Width="*" />
 
                         </DataGrid.Columns>
@@ -205,6 +207,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numéro de commande" Binding="{Binding num_commande}" Width="Auto" />
                             <DataGridTextColumn Header="Nom du produit" Binding="{Binding nom_bouquet}" Width="Auto" />
+                            <DataGridTextColumn Header="ID magasin" Binding="{Binding id_magasin}" Width="Auto" />
                             <DataGridTextColumn Header="Quantité" Binding="{Binding quantite_bouquet}" Width="*" />
                         </DataGrid.Columns>
 
@@ -293,6 +296,7 @@
                         <TextBlock Text="La commande contenant le moins de bouquet :" FontWeight="Bold" Margin="5"  />
                         <TextBlock x:Name="mincommandebouquet" Margin="5" />
                     </StackPanel>
+                    <Button x:Name="Refresh_stats" Content="Actualiser" Click="RefreshButton_stats" HorizontalAlignment="Left" Margin="910,-25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="65" Grid.ColumnSpan="3" Visibility="Collapsed" />
                 </Grid>
             </TabItem>
         </TabControl>
