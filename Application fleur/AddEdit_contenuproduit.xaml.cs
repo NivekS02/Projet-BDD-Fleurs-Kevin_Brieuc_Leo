@@ -66,11 +66,22 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
-                    command.Parameters.AddWithValue("@quantite_produit", quantite);
-                    command.ExecuteNonQuery();
-                    command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
+                        command.Parameters.AddWithValue("@quantite_produit", quantite);
+                        command.ExecuteNonQuery();
+                        command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Nous n'en avons pas assez en stock");
+                        connection.Close();
+                        return;
+
+                    }
+
                 }
                 else
                 {
@@ -117,11 +128,21 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
-                    command.Parameters.AddWithValue("@quantite_produit", quantite);
-                    command.ExecuteNonQuery();
-                    command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
+                        command.Parameters.AddWithValue("@quantite_produit", quantite);
+                        command.ExecuteNonQuery();
+                        command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Nous n'en avons pas assez en stock");
+                        connection.Close();
+                        return;
+                    }
+
                 }
                 else
                 {
@@ -170,11 +191,22 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
-                    command.Parameters.AddWithValue("@quantite_produit", quantite);
-                    command.ExecuteNonQuery();
-                    command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.CommandText = "INSERT INTO contenant_produit (num_commande,nom_produit,id_magasin,quantite_produit) VALUES (@num_commande,@nom_produit,@id_magasin,@quantite_produit)";
+                        command.Parameters.AddWithValue("@quantite_produit", quantite);
+                        command.ExecuteNonQuery();
+                        command.CommandText = "UPDATE produit set stock_produit=stock_produit-@quantite_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
+                        command.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Nous n'en avons pas assez en stock");
+                        connection.Close();
+                        return;
+
+                    }
+
                 }
                 else
                 {

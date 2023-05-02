@@ -20,8 +20,8 @@
         <TextBlock Margin="5,10,0,186" Text="Message :" Foreground="White" Grid.ColumnSpan="3" />
         <TextBox Margin="5,35,5,323" x:Name="message" Grid.ColumnSpan="3" />
 
-        <TextBlock Margin="5,58,0,186" Foreground="White" Grid.ColumnSpan="3"><Run Text="Nom"/><Run Text=" magasin :"/></TextBlock>
-        <TextBox Margin="5,81,5,277" x:Name="nom_magasin" Grid.ColumnSpan="3"  />
+        <TextBlock Margin="5,58,0,186" Foreground="White" Grid.ColumnSpan="3"><Run Text="ID"/><Run Text=" magasin :"/></TextBlock>
+        <TextBox Margin="5,81,5,277" x:Name="ID_magasin" Grid.ColumnSpan="3"  />
 
         <TextBlock Margin="5,104,0,184" Foreground="White" Grid.ColumnSpan="3"  ><Run Text="Votre c"/><Run Text="ourriel "/><Run Text=":"/></TextBlock>
         <TextBox Margin="5,127,5,231" x:Name="courriel_client" Grid.ColumnSpan="3"  />

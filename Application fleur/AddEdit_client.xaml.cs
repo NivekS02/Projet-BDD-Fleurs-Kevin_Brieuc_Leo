@@ -54,6 +54,7 @@ namespace Projet_BDD_Fleurs
                 command.Parameters.AddWithValue("@statut_fidelite", null);
                 command.Parameters.AddWithValue("@nom_client", nom_client);
                 command.Parameters.AddWithValue("@prenom_client", prenom_client);
+                command.Parameters.AddWithValue("@courriel_client", courriel_client);
                 command.Parameters.AddWithValue("@carte_de_credit_client", carte_de_credit_client);
                 command.Parameters.AddWithValue("@mdp_client", mdp_client);
                 command.Parameters.AddWithValue("@num_tel_client", num_tel_client);
