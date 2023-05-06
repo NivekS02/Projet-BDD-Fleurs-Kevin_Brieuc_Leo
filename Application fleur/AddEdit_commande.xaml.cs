@@ -26,7 +26,6 @@ namespace Projet_BDD_Fleurs
         private string adresse;
         private DateTime d_livraison;
         public int id_client;
-        private string nom;
         private string courriel;
         private bool creer=false;
         public AddEdit_commande()

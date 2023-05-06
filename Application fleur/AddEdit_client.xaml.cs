@@ -47,6 +47,21 @@ namespace Projet_BDD_Fleurs
                 mdp_client = mot_de_passe.Password;
                 num_tel_client = num_telephone.Text;
                 adresse_client = adresse.Text;
+
+                // Vérifie si l'email existe déjà dans la base de données
+                connection.Open();
+                MySqlCommand checkEmailCmd = new MySqlCommand("SELECT COUNT(*) FROM client WHERE courriel = @courriel_client", connection);
+                checkEmailCmd.Parameters.AddWithValue("@courriel_client", courriel_client);
+                int count = Convert.ToInt32(checkEmailCmd.ExecuteScalar());
+                connection.Close();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Cet email est déjà pris veuillez en sélectionner un autre.");
+                    return;
+                }
+
+                // Ajoute le client dans la base de données
                 connection.Open();
                 MySqlCommand command = new MySqlCommand();
                 command.Connection = connection;

@@ -393,6 +393,42 @@ namespace Projet_BDD_Fleurs
             long compteur = (long)command.ExecuteScalar();
             if (email == "root" && password == "root") //se connecter en admin
             {
+                command.CommandText = "SELECT stock_produit,nom_produit,id_magasin from produit;";
+                MySqlDataReader reader = command.ExecuteReader();
+                int stock_produit;
+                string message_admin="Attention";
+                string nom_produit;
+                int id_return;
+                while (reader.Read())
+                {
+                    stock_produit = reader.GetInt32(0);
+                    nom_produit = reader.GetString(1);
+                    id_return = reader.GetInt32(2);
+                    if (stock_produit < 10)
+                    {
+                        message_admin += "\nIl ne reste plus que " + stock_produit + " " + nom_produit+ " dans le magasin avec l'ID : " + id_return;
+                    }
+                }
+                reader.Close();
+                command.CommandText = "SELECT stock_bouquet,nom_bouquet,id_magasin from bouquet;";
+                reader = command.ExecuteReader();
+                int stock_bouquet;
+                string nom_bouquet;
+                while (reader.Read())
+                {
+                    stock_bouquet = reader.GetInt32(0);
+                    nom_bouquet = reader.GetString(1);
+                    id_return = reader.GetInt32(2);
+                    if (stock_bouquet < 10)
+                    {
+                        message_admin += "\nIl ne reste plus que " + stock_bouquet + " " + nom_bouquet+" dans le magasin avec l'ID : "+id_return;
+                    }
+                }
+                reader.Close();
+                if (message_admin != "Attention")
+                {
+                    MessageBox.Show(message_admin);
+                }
                 Onglet_Client.Visibility = Visibility.Visible;
                 Onglet_Magasin.Visibility = Visibility.Visible;
                 Onglet_Produit.Visibility = Visibility.Visible;

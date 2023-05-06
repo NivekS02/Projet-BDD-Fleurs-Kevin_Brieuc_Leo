@@ -205,12 +205,14 @@ namespace Projet_BDD_Fleurs
                 else
                 {
                     MessageBox.Show("Nous sommes désolés mais nous n'avons plus de stock pour ce produit dans ce magasin\nVeuillez nous excuser pour la gêne occasionnée.");
+                    connection.Close();
                     return;
                 }
             }
             else
             {
                 MessageBox.Show("Valeurs entrées incorrects ou champs incomplets.");
+                connection.Close();
                 return;
             }
             connection.Close();
