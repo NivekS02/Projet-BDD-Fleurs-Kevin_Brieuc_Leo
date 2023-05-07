@@ -67,7 +67,7 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    try
+                    if(stock>=quantite)
                     {
                         command.CommandText = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,id_magasin,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@id_magasin,@quantite_bouquet)";
                         command.Parameters.AddWithValue("@quantite_bouquet", quantite);
@@ -75,7 +75,7 @@ namespace Projet_BDD_Fleurs
                         command.CommandText = "UPDATE bouquet set stock_bouquet=stock_bouquet-@quantite_bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
                         command.ExecuteNonQuery();
                     }
-                    catch
+                    else
                     {
                         MessageBox.Show("Nous n'en avons pas assez en stock");
                         connection.Close();
@@ -126,7 +126,7 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    try
+                    if (stock >= quantite)
                     {
                         command.CommandText = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,id_magasin,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@id_magasin,@quantite_bouquet)";
                         command.Parameters.AddWithValue("@quantite_bouquet", quantite);
@@ -134,7 +134,7 @@ namespace Projet_BDD_Fleurs
                         command.CommandText = "UPDATE bouquet set stock_bouquet=stock_bouquet-@quantite_bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
                         command.ExecuteNonQuery();
                     }
-                    catch
+                    else
                     {
                         MessageBox.Show("Nous n'en avons pas assez en stock");
                         connection.Close();
@@ -187,7 +187,7 @@ namespace Projet_BDD_Fleurs
                 stock = Convert.ToInt32(command.ExecuteScalar());
                 if (stock > 0)
                 {
-                    try
+                    if (stock >= quantite)
                     {
                         command.CommandText = "INSERT INTO contenant_bouquet (num_commande,nom_bouquet,id_magasin,quantite_bouquet) VALUES (@num_commande,@nom_bouquet,@id_magasin,@quantite_bouquet)";
                         command.Parameters.AddWithValue("@quantite_bouquet", quantite);
@@ -195,7 +195,7 @@ namespace Projet_BDD_Fleurs
                         command.CommandText = "UPDATE bouquet set stock_bouquet=stock_bouquet-@quantite_bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
                         command.ExecuteNonQuery();
                     }
-                    catch
+                    else
                     {
                         MessageBox.Show("Nous n'en avons pas assez en stock");
                         connection.Close();
