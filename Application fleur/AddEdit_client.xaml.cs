@@ -55,6 +55,11 @@ namespace Projet_BDD_Fleurs
                 int count = Convert.ToInt32(checkEmailCmd.ExecuteScalar());
                 connection.Close();
 
+                if (courriel_client=="bozo" || courriel_client=="root")
+                {
+                    MessageBox.Show("Petit filou, n'essaye pas d'usurper mon identité");
+                    return;
+                }
                 if (count > 0)
                 {
                     MessageBox.Show("Cet email est déjà pris veuillez en sélectionner un autre.");
