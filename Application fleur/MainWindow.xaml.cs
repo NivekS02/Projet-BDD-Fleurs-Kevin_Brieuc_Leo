@@ -788,7 +788,7 @@ namespace Projet_BDD_Fleurs
             adapter.Fill(dataTable);
             BouquetDataGrid.ItemsSource = dataTable.DefaultView;
         }
-        private void RefreshButton_commande(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table commande
+        private void RefreshButton_commande(object sender, RoutedEventArgs e) //Permet d'actualiser les informations de la table commande mais aussi de contenu_produit et contenu_bouquet   
         {
             MySqlCommand command = new MySqlCommand();
             connection.Open();

@@ -57,7 +57,6 @@ namespace Projet_BDD_Fleurs
                     return;
                 }
                 command.CommandText= "Select count(*) from commande;";
-                quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
@@ -118,7 +117,6 @@ namespace Projet_BDD_Fleurs
                     return;
                 }
                 command.CommandText = "Select count(*) from commande;";
-                quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
@@ -181,7 +179,6 @@ namespace Projet_BDD_Fleurs
                     return;
                 }
                 command.CommandText = "Select count(*) from commande;";
-                quantite = Convert.ToInt32(quantite_bouquet.Text);
                 numero_commande = Convert.ToInt32(command.ExecuteScalar());
                 command.CommandText = "SELECT id_magasin from commande where num_commande=@num_commande;";
                 command.Parameters.AddWithValue("@num_commande", numero_commande);
