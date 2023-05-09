@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projet_BDD_Fleurs"
         mc:Ignorable="d"
-        Title="Del_produit" Height="136" Width="132">
+        Title="Del_produit" Height="162" Width="132">
     <Grid Background="DimGray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="61*"/>
@@ -16,11 +16,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Margin="5,10,0,281" Foreground="White" Grid.ColumnSpan="2" ><Run Text="Nom du produit :"/><Run Text=":"/></TextBlock>
+        <TextBlock Margin="5,10,0,281" Foreground="White" Grid.ColumnSpan="2" Text="Nom du produit :" />
         <TextBox Margin="5,35,5,323" x:Name="nom_produit" Grid.ColumnSpan="2" />
 
-        <Button Content="Valider" Click="ButtonDel_produit" HorizontalAlignment="Left" Margin="69,71,0,0" VerticalAlignment="Top" Width="50" Grid.ColumnSpan="2"/>
-        <Button Content="Annuler" Click="ButtonAnnuler" Margin="5,71,46,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,-1.8"/>
+        <Button Content="Valider" Click="ButtonDel_produit" HorizontalAlignment="Left" Margin="69,106,0,0" VerticalAlignment="Top" Width="50" Grid.ColumnSpan="2"/>
+        <Button Content="Annuler" Click="ButtonAnnuler" Margin="5,106,46,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,-1.8"/>
+        <TextBlock Margin="5,58,0,295" Foreground="White" Grid.ColumnSpan="2" Text="ID magasin :" />
+        <TextBox Margin="5,77,5,281" x:Name="id_magasin" Grid.ColumnSpan="2" />
 
 
     </Grid>

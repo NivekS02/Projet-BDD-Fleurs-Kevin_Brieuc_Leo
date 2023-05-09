@@ -22,6 +22,7 @@ namespace Projet_BDD_Fleurs
     {
         private string nom;
         public static MySqlConnection connection;
+        private int ID;
         public Del_produit()
         {
             InitializeComponent();
@@ -34,12 +35,14 @@ namespace Projet_BDD_Fleurs
             if (!string.IsNullOrEmpty(nom_produit.Text) && !string.IsNullOrEmpty(nom_produit.Text))
             {
                 nom = nom_produit.Text;
+                ID = Convert.ToInt32(id_magasin.Text);
                 connection.Open();
-                string query = "DELETE FROM contenant_produit where nom_produit=@nom_produit;";
+                string query = "DELETE FROM contenant_produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@nom_produit", nom);
+                command.Parameters.AddWithValue("@id_magasin", ID);
                 command.ExecuteNonQuery();
-                command.CommandText = "DELETE FROM produit where nom_produit=@nom_produit;";
+                command.CommandText = "DELETE FROM produit where nom_produit=@nom_produit and id_magasin=@id_magasin;";
                 command.ExecuteNonQuery();
                 connection.Close();
             }

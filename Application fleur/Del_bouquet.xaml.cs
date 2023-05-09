@@ -21,6 +21,7 @@ namespace Projet_BDD_Fleurs
     public partial class Del_bouquet : Window
     {
         private string nom;
+        private int ID;
         public static MySqlConnection connection;
         public Del_bouquet()
         {
@@ -40,12 +41,14 @@ namespace Projet_BDD_Fleurs
             if (!string.IsNullOrEmpty(nom_bouquet.Text) && !string.IsNullOrEmpty(nom_bouquet.Text))
             {
                 nom = nom_bouquet.Text;
+                ID = Convert.ToInt32(id_magasin.Text);
                 connection.Open();
-                string query = "DELETE FROM contenant_bouquet where nom_bouquet=@nom_bouquet;";
+                string query = "DELETE FROM contenant_bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@nom_bouquet", nom);
+                command.Parameters.AddWithValue("@id_magasin", ID);
                 command.ExecuteNonQuery();
-                command.CommandText = "DELETE FROM bouquet where nom_bouquet=@nom_bouquet;";
+                command.CommandText = "DELETE FROM bouquet where nom_bouquet=@nom_bouquet and id_magasin=@id_magasin;";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
